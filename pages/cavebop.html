@@ -49,11 +49,12 @@
 					<div id="main">
 						<div class="inner">
 							<h1>Cavebop</h1>
+							<!-- Concept -->
 							<h2>Concept</h2>
 							<p>A puzzle platformer created for Ludum Dare 48, based on the theme of "Deeper and Deeper". A memory based mining puzzle game about maneuvering your way to an exit hidden at the bottom of a cave. Each cave or level has a set amount of moves you're allowed to make. Explore caves with a variety of different rocks, hazards and mechanisms to figure out an optimal path to reach the end with trial and error.</p>
-							<p>I worked alongside one other person for this jam.</p>
+							<p>I worked alongside one other <a href="https://www.linkedin.com/in/elenabachmaier/" target="_blank">person</a> for this jam.</p>
 
-							
+							<!-- Images -->
 							<section class="tiles">	
 								<article class="style9">
 									<span class="image">
@@ -83,29 +84,64 @@
 									<span class="image">
 										<img src="../images/GameCovers/cavebop.jpg" alt="" />
 									</span>
-									<a href="../images/Cavebop/levelDesign.jpg" target="_blank">
+									<a href="../images/GameCovers/cavebop.jpg" target="_blank">
 										<h2 style='font-size: 24px'></h2>
 										<div class="content">
 											<p>Memory Based Puzzle Platformer</p>
 										</div>
 									</a>
 								</article>
-
 							</section>
 
-							<h2>Work Done</h2>
-							<h3>Design Pillars</h3>
-							<img src="../images/Cavebop/cb_pillar.png"/>
-							<p>Gameplay loop</p>
+							<!-- Video -->
+							<video style="display:block; margin: 0 auto;" width="420" height="340" controls><source src="../videos/cavebop.mp4" type="video/mp4">
+							<script>
+        						var video = document.currentScript.parentElement;
+        						video.volume = 0.4;
+        					</script>
+        					Your browser does not support the video tag</video>
 
-							<ul>
-								<li>Designer Friendly Tiles</li>
-								<li>Grid Based Movement</li>
-								<li>Tight Schedule</li>
-							</ul>
+        					<!-- Project Details -->
+							<h2 style="margin-top: 2em">Project Details</h2>
+							<p style="margin-top: -1em"><b>Team Size: </b> 2</p>
+							<p style="margin-top: -1em"><b>Project Form: </b>Game Jam</p>
+							<p style="margin-top: -1em"><b>Project Lenght: </b>3 Days</p>
+							<p style="margin-top: -1em"><b>Engine: </b>Unity</p>
 
+							<p><b>Responsibilities: </b>Programming, Technical Design, Game Art</p>
+
+							<!-- Work Done -->
+							<h2 style="margin-top: 2em">Notable Work</h2>
+							<div class="container">
+								<div class="thumb"><img src="../images/Cavebop/tileInspector.jpg"/></div>
+								<div class="content">
+									<h3>Designer Friendly Tiles</h3>
+									<ul>
+										<li>General framework for handling tiles</li>
+										<li>Customizable and easily editable for creating a range of tiles</li>
+										<li>Modular</li>
+									</ul>
+									<p>I implemented the tile framework for our game as an absract class with the goal of <b>allowing designers to easily extend</b> upon the functionality of each tile. The tile class allows for designers to <b>define settings for tweaking and altering</b> the behavior of tiles.</p>
+									<p>This helped tremondosuly with speeding up the development process of our game. With the project being a game jam, we needed to make sure <b>prototyping and testing could be done rapidly.</b> With tiles and how they were setup and interacted with the world being a key component of our game, it was vital that a system was in place for <b>easy customization and extendibility.</b> The system allowed for us to create and iterate on different tile implmentations and play around with different possibilities</p>
+								</div>
+							</div>
+
+							<div class="container">
+								<div class="thumb2"><img src="../images/Cavebop/levelDesign_unity.jpg"/></div>
+								<div class="content">
+									<h3>Level Design</h3>
+									<ul>
+										<li>Drag & Drop</li>
+										<li>Designer Friendly Customization</li>
+									</ul>
+									<p>With the modularity of the tile system, it was possible to <b>easily implement</b> and create level layouts for our puzzles. Both me and the designer I worked alongside, we're able to easily implement a variety of different levels due to the simplicity of how our system was setup.</p>
+									<p>Our levels were designed with the goal of <b>gradually teaching</b> the various mechanics and rules of each tile to the players, before giving them more difficult and interesting level/puzzles to tackle.</p>
+								</div>
+							</div>
+
+							<!-- Links -->
 							<br><br>
-							<a style="color: #f6f6f6">Links (Code & Visuals)</a>
+							<a style="color: #f6f6f6">Links</a>
 							<ul class="icons">
 									<li id="test2"><a href="https://luketobin.itch.io/cavebop" class="icon brands style2 fa-itch-io"><span class="label">Itch.io</span></a></li>
 									<li id="test2"><a href="https://github.com/LukeTobin/LudumDare48" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>

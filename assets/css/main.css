@@ -146,7 +146,7 @@ input, select, textarea {
 		-ms-transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		text-decoration: none;
-		color: #585858;
+		color: #adb5bd;
 		border-bottom: dotted 1px rgba(88, 88, 88, 0.5);
 	}
 
@@ -209,12 +209,14 @@ input, select, textarea {
 		}
 
 	h2 {
-		font-size: 1.1em;
+		font-size: 1.3em;
 		margin: 0 0 1em 0;
 	}
 
 	h3 {
 		font-size: 1em;
+		margin: 0 0 1em 0;
+		letter-spacing: 0.25em;
 	}
 
 	h4 {
@@ -2859,7 +2861,7 @@ input, select, textarea {
 			}
 
 			#header .logo .symbol {
-				margin-right: 0.65em;
+				margin-right: 0.55em;
 			}
 
 				#header .logo .symbol img {
@@ -3345,3 +3347,42 @@ input, select, textarea {
 			}
 
 		}
+
+.container{
+	background-color: #3b3c3d;
+	margin: 1.5em 1.5em 2em 0;  
+    overflow: auto
+}
+
+.thumb {
+    float: right
+}
+.thumb img {
+    display: block
+    margin-right: 1.5em;
+    padding-left: 1.5em;
+}
+
+.thumb2{
+	float: left;
+}
+.thumb2 img {
+	display: block;
+	margin-right: 1.5em;
+	padding-right: 1em;
+}
+
+.content {
+	margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.content h3 {
+	text-align: center;
+}
+
+.content ul {
+	margin-bottom: 0.5em;
+}
+
