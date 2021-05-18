@@ -96,12 +96,7 @@
 
 
 							<!-- Video(s) -->
-							<video style="display:block; margin: 0 auto;" width="420" height="340" controls><source src="../videos/guilder.mp4" type="video/mp4">
-							<script>
-        						var video = document.currentScript.parentElement;
-        						video.volume = 0.4;
-        					</script>
-        					Your browser does not support the video tag</video>
+							<iframe style="display:block; margin: 0 auto;" width="560" height="315" src="https://www.youtube.com/embed/m-y9larHepA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
         					<!-- Project Details -->
@@ -119,13 +114,10 @@
 							<div class="container">
 								<div class="thumb"><img style="width: 800px;height: 600px;" src="../images/Guilder/vpc.png"/></div>
 								<div class="content">
-									<h3>Concept Process</h3>
-									<ul>
-										<li>Market Analysis</li>
-										<li>Target Audience</li>
-										<li>Design Pillars</li>
-										<li>Defined Gameplay Loop</li>
-									</ul>
+									<h3>Concepting</h3>
+									<p>The concept for the game stemmed from market research into popular indie game titles. We quickly discovered an overlap between two markets with great indie success. <b>Roguelike & Turn based</b>, we decided to try caputalize on the gap in the market, by creating a unique game with key elements from both genres.</p>
+									<p>Our core design pillars were an <b>engaging turn based gameplay, flexbility and composition building and meaningful decision making.</b></p>
+									<p>The gameplay loops consisted within the game would be similar to that of <b>roguelike deckbuilders</b>, taking inspiration for the genres new star games. <b>Building a team composition and strategizing and utilizing your units effectivly</b></p>
 								</div>
 							</div>
 
@@ -133,10 +125,7 @@
 								<div class="thumb2"><img style="width: 500px;height: 250px;" src="../images/Guilder/recruit.jpg"/></div>
 								<div class="content">
 									<h3>Gameplay loops</h3>
-									<ul>
-										<li>High-level loops</li>
-										<li>Low-level loops</li>
-									</ul>
+									<p>The core gameplay loop would consist of <b>'Traversing a generted map' -> 'Battling with your units' -> 'Collect rewards and Recruit new units'</b></p>
 								</div>
 							</div>
 
@@ -145,11 +134,13 @@
 								<div class="content">
 									<h3>Units</h3>
 									<ul>
-										<li>Easily Customizable</li>
 										<li>Modular</li>
-										<li>Handling Movement & Combat</li>
-										<li>Worked with both Ally & Enemy</li>
+										<li>Designer Friendly</li>
+										<li>Handled Combat, movement and AI</li>
 									</ul>
+									<p>The unit system was set up with <b>modularity & designers in mind</b>. With unit's typically only differing based on ability usage, unit's should be able to be created at anytime by designers. This system allows for designers to enter relevant information and fill in the stats, abilites and behaviors of a unit.</p>
+									<p>Editing details, quick balance changes and prototyping was able to be done in </b>rapid</p> succession with our framework.</p>
+									<p>This framework handled unit behaviors such as <b>moving, attacking, pathfinding and enemy AI</b>. The  modularity of the system made interacting with the objects in our code simple and effective.</p>
 								</div>
 							</div>
 
@@ -183,7 +174,7 @@
 									<ul>
 										<li>A* pathfinding implementation</li>
 										<li>Usable by any unit in the game</li>
-										<li>Worked wonders for creating enemy ai</li>
+										<li>Worked wonders for implementing enemy ai</li>
 									</ul>
 								</div>
 							</div>
