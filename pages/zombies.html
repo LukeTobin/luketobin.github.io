@@ -102,60 +102,38 @@
 							<!-- Work Done -->
 							<h2 style="margin-top: 2em">Notable Work</h2>
 							<div class="container">
-								<div class="thumb"><img src="../images/Cavebop/tileInspector.jpg"/></div>
-								<div class="content">
-									<h3>Game Design</h3>
-									<p>Concept</p>
-									<p>Experimenting with genres</p>
-									<p>Design Pillars</p>
-									<p>Gameplay Loops</p>
-								</div>
-							</div>
-
-							<div class="container">
 								<div class="thumb2"><img style="width: 800px;height: 600px;" src="../images/Zombies/ogLevelDesign.jpg"/></div>
 								<div class="content">
 									<h3>Level Design</h3>
-									<p>Level goals</p>
-									<p>Referencing COD</p>
+									<p>The goal with creating levels for this prototype was to take design principles from the original treyarch zombie maps. Utilizing sections of interest & open area which players will spend most of their time</p>
+									<p>The map gets split into tight areas leading to your most common area to stay. A more fleshed out prototype would include points of interest within the tight areas, giving the player a reason to leave the core area.</p>
 								</div>
-								<div class="thumb"><img style="width: 800px;height: 600px;" src="../images/Zombies/resultLevel.jpg"/></div>
+								<div class="thumb2"><img style="width: 800px;height: 600px;" src="../images/Zombies/resultLevel.jpg"/></div>
 							</div>
 
 							<div class="container">
 								<div class="content">
 									<h3>Zone System</h3>
-									<p>COD design method</p>
-									<p>Usefull for breaking down certain areas of the map</p>
+									<p>A design method I brough over to my prototype was to utilize the same system structure that Treyarch used in the zone system</p>
+									<p>This system splits areas of the map into unique zones. This has a series of strong benefits for the game. It causing the spawning of zombies to be closer to the player rather than random areas far away from the player, it also allows for better recyling of distant enemies.</p>
 								</div>
 								<div class="thumb2"><img src= "../images/Zombies/zone.jpg"/></div>
-							</div>
-
-							<div class="container">
-								<div class="thumb"><img src= "../images/Cavebop/tileInspector.jpg"/></div>
-								<div class="content">
-									<h3>Perk System</h3>
-									<p>Making gameplay more emergent</p>
-									<p></p>
-								</div>
 							</div>
 
 							<div class="container">
 								<div class="thumb2"><img src="../images/Zombies/zombie.jpg"/></div>
 								<div class="content">
 									<h3>Zombies</h3>
-									<p>Editable</p>
-									<p>NavMesh based AI</p>
-									<p>Object pooling</p>
+									<p>The zombie's of this game utilize a series of different useful systems. Zombies movement is based on the Unity NavMesh, which allows for optimal pathfinding towards the character. With a constant flow of zombies, the system I created utilized the object pooling design pattern, to recycle objects instead of the heavy use of creating & destroying objects.</p>
 								</div>
 							</div>
 
 							<div class="container">
-								<div class="thumb"><img style="width: 600px; height: 400px;" src="../images/Zombies/weapons.png"/></div>
+								<div class="thumb"><img style="width: 600px; height: 450px;" src="../images/Zombies/weapons.png"/></div>
 								<div class="content">
 									<h3>Weapon System</h3>
-									<p>Editable</p>
-									<p>Handles variation</p>
+									<p>The weapon system was set up to be modular and allow for easy customization, possible of handling variation in many forms such as single fire, burst, automatic and delayed. Each weapon can edit their settings easily for quick customization.</p>
+									<p>Variables such as weapon sway, aim down sight time and recoil spread are examples of unique editable variables.</p>
 								</div>
 							</div>
 
@@ -163,8 +141,8 @@
 								<div class="thumb2"><img src="../images/Zombies/celShader1.jpg"/></div>
 								<div class="content">
 									<h3>Custom Shaders</h3>
-									<p>Editable</p>
-									<p>Handles variation</p>
+									<p>The prototype utilizes an interesting shader effect, which is a combination of an outline shader & a toon shader. This shader effect applied upon a low poly model created an intriguing aesthetics for the game, similar to that of borderlands.</p>
+									<p>Due to the nature of how the shader was set up, it was possible to apply this shader effect on any existing material and mix well with it. This allowed for me to apply the shader on all objects in the scene, allowing for that awesome borderlands look across the game.</p>
 								</div>
 								<div class="thumb"><img style="width: 1350px;height: 650px;" src="../images/Zombies/celShader_2.jpg"/></div>
 							</div>
@@ -172,12 +150,9 @@
 							<div class="container">
 								<div class="content">
 									<h3>Multiplayer System</h3>
-									<p>Photon PUN</p>
-									<p>Lobby system</p>
-									<p>Custom Names</p>
-									<p>Play with others</p>
+									<p>The game includes a multiplayer system. This was set up using Photon PUN, the game itself includes a working lobby system & capability to play with others. Features such as lobby name, size & custom usernames are all also available.</p>
 								</div>
-								<div class="thumb"><img src="../images/Zombies/lobbies.gif"/></div>
+								<div class="thumb"><img src="https://s3.gifyu.com/images/lobbies.gif" alt="lobbies.gif" border="0" /></div>
 							</div>
 
 
