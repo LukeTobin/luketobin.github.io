@@ -45,7 +45,11 @@
 						<div class="inner">
 							<h1>Untitled Zombie Game</h1>
 							<h2>Concept</h2>
-							<p>Some of the core functionality include:</p>
+							<p>This project is a prototype inspired by the Call of Duty: Zombies game mode developed by Treyarch. Through this prototype, I aimed to deepen my understanding of various aspects of game development, including multiplayer networking, shader programming, and first-person shooter design patterns.</p>
+
+							<p>The prototype features a fast-paced, intense gameplay experience with challenging enemy encounters and engaging level design. By implementing the zone system pioneered by Treyarch, I created a cohesive game world that keeps players on their toes and adds an extra layer of challenge to the gameplay.</p>
+
+							<p>Throughout the development process, I gained valuable insights into the technical and design considerations that go into creating a successful game. The project serves as a testament to my passion for game development and my ability to tackle complex problems with creative solutions.</p>
 
 							<!-- Images -->
 							<section class="tiles">	
@@ -68,7 +72,7 @@
 									<a href="../images/Zombies/celShader1.jpg" target="_blank">
 										<h2 style='font-size: 24px'></h2>
 										<div class="content">
-											<p>Gameplay</p>
+											<p>Rough Toon Shader</p>
 										</div>
 									</a>
 								</article>
@@ -80,7 +84,7 @@
 									<a href="../images/Zombies/promo_1.jpg" target="_blank">
 										<h2 style='font-size: 24px'></h2>
 										<div class="content">
-											<p></p>
+											<p>Gameplay</p>
 										</div>
 									</a>
 								</article>
@@ -95,6 +99,7 @@
 							<p style="margin-top: -1em"><b>Project Form: </b>Prototype</p>
 							<p style="margin-top: -1em"><b>Project Length </b>2-3 Months, side project</p>
 							<p style="margin-top: -1em"><b>Engine: </b>Unity</p>
+							<p style="margin-top: -1em"><b>Source Control: </b>GitHub</p>
 
 							<p><b>Responsibilities: </b>Programming, Technical Design, Game Design</p>
 
@@ -102,19 +107,22 @@
 							<h2 style="margin-top: 2em">Notable Work</h2>
 							<div class="container">
 								<div class="thumb2"><img style="width: 800px;height: 600px;" src="../images/Zombies/ogLevelDesign.jpg"/></div>
+								<div class="thumb2"><img style="width: 800px;height: 600px;" src="../images/Zombies/resultLevel.jpg"/></div>
 								<div class="content">
 									<h3>Level Design</h3>
-									<p>The goal with creating levels for this prototype was to take design principles from the original treyarch zombie maps. Utilizing sections of interest & open area which players will spend most of their time</p>
-									<p>The map gets split into tight areas leading to your most common area to stay. A more fleshed out prototype would include points of interest within the tight areas, giving the player a reason to leave the core area.</p>
+									<p>For this project, I aimed to capture the essence of the original <b>Treyarch</b> zombie maps by incorporating their proven design principles into the level design. I focused on creating sections of interest and open areas where players would spend the majority of their time. To achieve this, I divided the map into <u>tight areas</u> that ultimately led to the <u>central core area</u> where players would naturally gravitate.</p>
+									
+									<p>To make the experience even more engaging, I designed additional <u>points of interest</u> within these tight areas, which gave players a <u>compelling reason</u> to venture out from the core area. While this prototype is still a work in progress, it showcases my ability to create <u>compelling level designs</u> that keep players engaged and entertained.</p>
 								</div>
-								<div class="thumb2"><img style="width: 800px;height: 600px;" src="../images/Zombies/resultLevel.jpg"/></div>
+								
 							</div>
 
 							<div class="container">
 								<div class="content">
 									<h3>Zone System</h3>
-									<p>A design method I brought over to my prototype was to utilize my own take on Treyarch's zone system.</p>
-									<p>This system splits areas of the map into unique zones. This has a series of strong benefits for the game. It causes the spawning of zombies to be closer to the player rather than random areas far away from the player, it also allows for better recycling of distant enemies.</p>
+									<p>In developing this prototype, I implemented a custom version of the <b>zone system</b> pioneered by Treyarch.</p>
+									<p>The map was divided into <i>unique zones</i>, each offering its own distinct characteristics and gameplay elements. This approach yields multiple benefits, such as ensuring that zombies <u>spawn in close proximity</u> to the player, leading to a more <b>immersive and intense experience</b>. Additionally, it facilitates the efficient recycling of distant enemies, further enhancing the overall gameplay & <u>performance</u>.</p>
+									<p>By adopting this design methodology, I was able to create a more <b>cohesive and engaging</b> game world that kept players on their toes and added an extra layer of challenge to the gameplay.</p>
 								</div>
 								<div class="thumb2"><img src= "../images/Zombies/zone.jpg"/></div>
 							</div>
@@ -123,7 +131,7 @@
 								<div class="thumb2"><img src="../images/Zombies/zombie.jpg"/></div>
 								<div class="content">
 									<h3>Zombies</h3>
-									<p>The zombie's of this game utilize a series of different useful systems. Zombies movement is based on the Unity NavMesh, which allows for optimal pathfinding towards the character. With a constant flow of zombies, the system I created utilized the object pooling design pattern, to recycle objects instead of the heavy use of creating & destroying objects.</p>
+									<p>The zombies in this game employ several useful systems to enhance their behavior. They utilize <u>Unity NavMesh</u> for optimal pathfinding towards the player, ensuring smooth and realistic movement. To handle the constant flow of zombies, I implemented the <u>object pooling</u> design pattern, which efficiently recycles objects instead of relying on creating and destroying them, resulting in improved <b>performance</b> and reduced resource consumption.</p>
 								</div>
 							</div>
 
@@ -131,8 +139,7 @@
 								<div class="thumb"><img style="width: 600px; height: 450px;" src="../images/Zombies/weapons.png"/></div>
 								<div class="content">
 									<h3>Weapon System</h3>
-									<p>The weapon system was set up to be modular and allow for easy customization, possible of handling variation in many forms such as single fire, burst, automatic and delayed. Each weapon can edit their settings easily for quick customization.</p>
-									<p>Variables such as weapon sway, aim down sight time and recoil spread are examples of unique editable variables.</p>
+									<p>The weapon system was designed to be highly <b>modular</b>, allowing for easy customization and handling of various forms of weaponry such as <u>single-fire, burst, automatic, and delayed</u>. Each weapon can be easily adjusted to suit the player's preferences, with settings such as <u>weapon sway, aim-down-sight time, and recoil spread</u> being fully editable. These variables provide a unique level of customization that ensures each weapon feels distinct and offers a different playstyle.</p>
 								</div>
 							</div>
 
@@ -140,8 +147,8 @@
 								<div class="thumb2"><img src="../images/Zombies/celShader1.jpg"/></div>
 								<div class="content">
 									<h3>Custom Shaders</h3>
-									<p>The prototype utilizes an interesting shader effect, which is a combination of an outline shader & a toon shader. This shader effect applied upon a low poly model created an intriguing aesthetics for the game, similar to that of borderlands.</p>
-									<p>Due to the nature of how the shader was set up, it was possible to apply this shader effect on any existing material and mix well with it. This allowed for me to apply the shader on all objects in the scene, allowing for that awesome borderlands look across the game.</p>
+									<p>The prototype features a visually intriguing shader effect that combines an <b>outline shader</b> and a <b>toon shader</b>. By applying this effect to low-poly models, the game's aesthetics resemble those of the popular game, <u>Borderlands.</u></p>
+									<p>The shader was designed in such a way that it could be applied to any existing material and blend well with it. This allowed me to apply the shader to all objects in the scene, resulting in a consistent Borderlands-inspired look throughout the game.</p>
 								</div>
 								<div class="thumb"><img style="width: 1350px;height: 650px;" src="../images/Zombies/celShader_2.jpg"/></div>
 							</div>
@@ -149,9 +156,8 @@
 							<div class="container">
 								<div class="content">
 									<h3>Multiplayer System</h3>
-									<p>The game includes a multiplayer system. This was set up using Photon PUN, the game itself includes a working lobby system & capability to play with others. Features such as lobby name, size & custom usernames are all also available.</p>
+									<p>The game features a robust multiplayer system implemented using <b>Photon PUN</b>. Players can <u>create and join</u> game lobbies, complete with customizable <u>lobby names, sizes, and usernames</u>. The system has been thoroughly tested to ensure smooth and stable online gameplay, providing players with an engaging and seamless multiplayer experience.</p>
 								</div>
-								<div class="thumb"><img src="https://s3.gifyu.com/images/lobbies.gif" alt="lobbies.gif" border="0" /></div>
 							</div>
 
 
@@ -195,6 +201,8 @@
 									<li id="test"><a href="https://www.linkedin.com/in/lukejltobin/" class="icon brands style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
 									<li id="test"><a href="https://twitter.com/FreySenpai" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
 									<li id="test"><a href="mailto: lukejltobin@gmail.com" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+
+									<li id="test"><a href="" class="icon brands style3 fa-discord"><span class="label">Frey#3163</span></a></li>
 								</ul>
 							</section>
 							<ul class="copyright">
