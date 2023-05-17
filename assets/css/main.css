@@ -3521,9 +3521,10 @@ input, select, textarea {
 }
 
 .container img {
-border-radius: 50px;
+  border-radius: 50px;
   max-width: 100%;
   height: auto;
+  display: flex;
 }
 
 .thumb {
@@ -3537,11 +3538,14 @@ border-radius: 50px;
 
 .thumb2{
 	float: left;
+	flex: 1;
 }
 .thumb2 img {
 	display: block;
 	margin-right: 1.5em;
 	padding-right: 1em;
+	width: 100%;
+	height: auto;
 }
 
 .content {

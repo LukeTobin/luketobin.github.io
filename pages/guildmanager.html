@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Luke Tobin - Guild Manager Prototype</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">Technical Design Portfolio</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../docs/Resume.pdf" target="_blank">Resume</a></li>
+							<li><a href="#con">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Guild Manager Prototype</h1>
+							<h2>Concept</h2>
+							<p>I am currently working on a guild management <b>prototype</b>, drawing inspiration from the captivating guild and world designs found in <u>Manhwa</u>, as well as incorporating elements from popular management games like <u>Football Manager</u> and <u>Darkest Dungeon</u>.</p>
+							<p>This game combines the thrill of <b>auto-battler</b> mechanics with strategic decision-making. Players have the ability to dispatch parties on exciting dungeon expeditions, complete challenging quests, and explore a procedural world. As the player, your role is to oversee and manage the guild, effectively delegating tasks and devising strategies.</p>
+							<p>By leveraging the engaging gameplay elements of auto-battlers and the immersive world-building found in Manhwa, Guild Manager <i>hopes</i> to offer an innovative and <b>captivating experience</b> for players.</p>
+
+							<!-- Images -->
+							<section class="tiles">	
+								<article class="style9">
+									<span class="image">
+										<img src="../images/GuildManager/screenshot_char.jpg" alt="" />
+									</span>
+									<a href="../images/GuildManager/screenshot_char.jpg" target="_blank">
+										<h2 style='font-size: 24px'></h2>
+										<div class="content">
+											<p>Generated Character</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style9">
+									<span class="image">
+										<img src="../images/GuildManager/screenshot_dun.jpg" alt="" />
+									</span>
+									<a href="../images/GuildManager/screenshot_dun.jpg" target="_blank">
+										<h2 style='font-size: 24px'></h2>
+										<div class="content">
+											<p>Dungeon</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style9">
+									<span class="image">
+										<img src="../images/GuildManager/screenshot_shop.jpg" alt="" />
+									</span>
+									<a href="../images/GuildManager/screenshot_shop.jpg" target="_blank">
+										<h2 style='font-size: 24px'></h2>
+										<div class="content">
+											<p>Shop</p>
+										</div>
+									</a>
+								</article>
+							</section>
+
+        					<!-- Project Details -->
+							<h2 style="margin-top: 2em">Project Details</h2>
+							<p style="margin-top: -1em"><b>Team Size: </b> 1</p>
+							<p style="margin-top: -1em"><b>Year: </b>2023</p>
+							<p style="margin-top: -1em"><b>Project Form: </b>Prototype</p>
+							<p style="margin-top: -1em"><b>Project Length </b>In Development</p>
+							<p style="margin-top: -1em"><b>Engine: </b>Unity</p>
+							<p style="margin-top: -1em"><b>Source Control: </b>PlasticSCM</p>
+
+							<!-- Work Done -->
+
+							<!-- Save System -->
+							<h2 style="margin-top: 2em">Notable Work</h2>
+							<div class="container">
+								<div class="thumb2"><img style="width: auto;height: auto;" src="../images/GuildManager/save_manager.jpg"/></div>
+								<div class="thumb2"><img style="width: auto;height: auto;" src="../images/GuildManager/save_ser.jpg"/></div>
+								<div class="content">
+									<h3>Save System</h3>
+									<p>Save System built using a <b>BinaryFormatter</b>, this system enables <u>seamless saving and loading</u> of various forms of data within Unity.</p>
+									<p>With a robust and easily <b>expandable</b> backend, the Save System simplifies the process of saving data, making it accessible to both novice and experienced developers.</p>
+									<p>Utilizing the concept of <b>Surrogates</b>, the system effortlessly converts <u>Unity-specific data</u>, including <i>Sprites</i> and <i>ScriptableObjects</i>, into savable data, ensuring that no valuable information is lost during the saving process.</p>
+									<p>Having been successfully integrated into multiple of my own projects, the Save System showcases its <u>adaptability</u> by effortlessly accommodating the specific requirements of each project it serves.</p>
+								</div>
+							</div>
+
+							<!-- Card Generation -->
+							<div class="container">
+								<div class="content">
+									<h3>Card Generation</h3>
+									<p>Units, equipment, items and more in this game are stored and represented by cards. Generating cards was an interesting challenge presented by this prototype. Different approaches were explored including <u>Box-Muller transformations</u> and <u>weights</u>. The code snippet shown below <u>generates</u> a character based on a given overall expected stat range. Through a series of mathematical formulas and the <u>Box-Muller transformation algorithm</u>, the code intelligently generates stats for the character. These stats then determine the character's <u>class, skills, and other essential details</u>.</p>
+
+									<div class="thumb2"><img src= "../images/GuildManager/char_gen.jpg"/></div>
+
+									<p>This flexible data storage methodology also enables effortless customization of both <u>custom and preset characters</u>. By utilizing Scriptable Objects to store specific character and enemy data, the system <b>empowers designers</b> to create unique and <u>tailored experiences</u>.</p>
+
+									<p>The representation of data is achieved through the CharacterCard MonoBehaviour class, which effectively <u>separates logic</u> related to combat, decision-making, and UI handling.</p>
+
+									<div class="thumb2"><img src= "../images/GuildManager/char_code.jpg"/></div>
+
+									<p>The AI behavior for each character is governed by a distinct class known as the <b>CombatBrain</b>. This class <u>evaluates</u> the best possible move for a character by considering a range of factors, including the character's intelligence, team composition, enemy presence, and individual quirks. The <u>flexibility</u> of this system allows for the creation of custom CombatBrains tailored to specific enemy types or unique character behaviors.</p>
+
+									<div class="thumb2"><img src= "../images/GuildManager/char_brain.jpg"/></div>
+
+									<p>When determining which characters are available for the player to encounter or recruit, the <b>Box-Muller transformation</b> technique is employed to ensure that the overall ratings of units fall within a given <u>bell curve</u>.</p>
+
+									<p>Through the amalgamation of thoughtful algorithms and well-designed systems, the Card Generation feature delivers <u>dynamic and diverse</u> generations, making each encounter and recruitment decision within the game a unique and engaging venture.</p>
+									
+									<div class="thumb2"><img src= "../images/GuildManager/char_boxCode.jpg"/></div>
+									<div class="thumb"><img src= "../images/GuildManager/char_enemy.jpg"/></div>
+									<div class="thumb2"><img src= "../images/GuildManager/char_box.jpg"/></div>
+
+									<
+								</div>
+							</div>
+
+							<!-- Background Dungeons -->
+							<div class="container">
+								<div class="content">
+									<h3>Background Dungeons</h3>
+									<p>Within the game, the ability to have multiple dungeons run <b>asynchronously</b> while the player interacts with other parts of the game was a crucial aspect to address. To tackle this challenge, a robust system was developed to <u>seamlessly</u> handle background dungeon operations.</p>
+									<p>A dedicated <u>manager class</u> was created to oversee active dungeons, ensuring <i>smooth</i> coordination and efficient resource management. Additionally, individual DungeonController classes were implemented to handle the logic of each dungeon. These controllers effectively divided tasks into separate classes, including specialized classes for UI management and combat logic.</p>
+									<div class="thumb2"><img src="../images/GuildManager/dun_manager.jpg"/></div>
+									<div class="thumb2"><img src="../images/GuildManager/dun_code.jpg"/></div>
+									<p>The showcased code snippets above provide a glimpse into the implementation of this dynamic system. The Dungeon Manager class acts as the central orchestrator, <u>coordinating</u> and <u>handling</u> the activities of multiple dungeons running concurrently. On the other hand, the DungeonController classes encapsulate the logic specific to each dungeon, enabling efficient and <u>modular</u> development.</p>
+									<p>Through this system design, the game achieves a <u>seamless and immersive</u> experience, allowing players to interact with various game elements while dungeons progress and save in the background.</p>
+								</div>
+
+							</div>
+
+							<!-- Skill System -->
+							<div class="container">
+								
+								<div class="content">
+									<h3>Skill System</h3>
+									<p>The game's skill system took an approach similar to that of flexible digital <u>card games</u> through the use <i>ScriptableObjects</i>. At the core of the system lies the Skill class, composed of a series of <b>Actions</b> that are executed in a specific order. This design enables <u>rapid creation</u> of new skills, promoting a streamlined and <b>designer-friendly</b> workflow; While leaving the expandability of the system up to the developer or external modders.</p>
+									<div class="thumb2"><img style="width: auto; height: auto;" src="../images/GuildManager/skill_code.jpg"/></div>
+									<p>By constructing Skills using a collection of Actions, the system <b>empowers designers</b> to swiftly add depth and variety to the skill system. Simple Actions, such as damaging an enemy, can be rapidly created and reused across multiple skills, eliminating the need for redundant code. Moreover, the system supports the incorporation of complexity where necessary. For instance, Conditional Actions allow for dynamic outcomes based on specific conditions. This allows designers to create deep and enriching logic for their skills.</p>
+									<div class="thumb2"><img style="width: auto; height: auto;" src="../images/GuildManager/skill_action.jpg"/></div>
+									<div class="thumb2"><img style="width: auto; height: auto;" src="../images/GuildManager/skill_cond.jpg"/></div>
+									
+									<div class="thumb">
+										<p>The accompanying code snippets and images above provide a glimpse into the implementation of this <u>versatile</u> skill system. The code showcases the structure and organization of the Skill class, highlighting the efficient and <u>reusable</u> nature of Actions. Additionally, the inspector view reveals the intuitive and <u>designer-friendly interface</u> for skill creation and customization.</p>
+										<p>By leveraging the power of <i>ScriptableObjects</i> and the <u>modular design</u> of the Skill system, the game fosters rapid iteration and empowers designers to effortlessly create engaging and diverse skills for players to master.</p>
+									</div>
+									<div class="thumb2"><img style="width: auto; height: auto;" src="../images/GuildManager/skill_inspector.jpg"/></div>
+
+
+
+								</div>
+							</div>
+
+							<!-- Links -->
+							<br><br>
+							<h3 style="color: #f6f6f6">Links</h3>
+							<ul class="icons">
+									<li id="test2"><a href="https://github.com/LukeTobin/GuildManagerPrototype" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<!--
+							<section>
+								<h2 id="test">Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+						-->
+							<section>
+								<h2 id="test">Contact</h2>
+								<ul class="icons">
+									<li id="test"><a href="https://github.com/LukeTobin" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li id="test"><a href="https://www.linkedin.com/in/lukejltobin/" class="icon brands style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li id="test"><a href="https://twitter.com/FreySenpai" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li id="test"><a href="mailto: lukejltobin@gmail.com" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+
+									<li id="test"><a href="" class="icon brands style3 fa-discord"><span class="label">Frey#3163</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Luke Tobin. All rights reserved</li></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
