@@ -3562,3 +3562,8 @@ input, select, textarea {
 	margin-bottom: 0.5em;
 }
 
+.pdf-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
