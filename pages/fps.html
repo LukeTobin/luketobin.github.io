@@ -225,16 +225,16 @@
 								<div class="content">
 									<h3>Movement</h3>
 									
-									<p>The movement feature is your stock standard approach to first person moving. The feature uses a custom physics based approach rather than using Unity's CharacterController. The movement feature is able to adjust and handle slops & air time appropriatly</p>
+									<p>The movement mechanics embody a fundamental yet refined approach to first-person locomotion. Rather than relying on Unity's CharacterController, I've implemented a bespoke physics-driven system to govern movement. This bespoke system not only provides a more tailored experience but also offers enhanced adaptability to varied terrains and air dynamics. This versatility extends to inclines and aerial maneuvers, ensuring seamless traversal across different environmental conditions.</p>
 
-									<p>Jumping is also implemented, while not being tightly tied to movement, allowing the possibilty of removing it based on the projects needs.</p>
+									<p>Additionally, I've incorporated a dynamic jumping mechanic that complements the movement system. This jump mechanic operates independently, which grants the flexibility to easily fine-tune or even remove it, should project requirements demand such adjustments. This separation of movement and jumping mechanics exemplifies a modular design ethos, allowing for precise control and customization in alignment with project objectives.</p>
 									<div class="box alt">
 										<div class="row aln-center">
 											<div class="col-8"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/FPS/jump.gif" alt="" /></span></div>
 										</div>
 									</div>
 
-									<p>Wall Running was implemented as a less stock-standard feature, that provides opportunities for certain prototypes. The feature includes generic game juice for wall-running, to convey momentum & horizontal movment.</p>
+									<p>Wall Running was seamlessly integrated as a distinctive gameplay element, offering intriguing possibilities for specific prototypes. This feature introduces a layer of innovation beyond conventional mechanics. The implementation incorporates a dynamic game juice system for wall-running, effectively conveying a sense of momentum and fluid horizontal movement. This not only enriches the player experience but also opens avenues for creative level design and captivating gameplay scenarios.</p>
 									<div class="box alt">
 										<div class="row aln-center">
 											<div class="col-8"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/FPS/wallrun.gif" alt="" /></span></div>
@@ -756,14 +756,15 @@ namespace FreyPhysicsController
 							<div class="container">
 								<div class="content">
 									<h3>Grappling Hook</h3>
-									<p>The grappling-hook feature allows players to swing around your level utilizing Unity's SpringJoints.</p>
+									<p>The grappling-hook feature empowers players to swing through the environment using Unity's SpringJoints.</p>
 									<div class="box alt">
 										<div class="row aln-center">
 											<div class="col-8"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/FPS/grapple.gif" alt="" /></span></div>
 										</div>
 									</div>
 									
-									<p>The features implementation also allowed for interesting experiments with an attatching feature. The feature combines two objects together using SpringJoints, similar to that of The Legend of Zelda: Tears of the Kingdom, just in a more "ragdoll" manner.</p>
+									<p>
+										The feature's implementation also facilitated intriguing experiments with an attachment mechanic. This mechanic ingeniously fuses two objects using SpringJoints, reminiscent of The Legend of Zelda: Tears of the Kingdom, albeit with a playful "ragdoll" twist.</p>
 									<div class="box alt">
 										<div class="row aln-center">
 											<div class="col-8"><span class="image fit"><img src="https://github.com/LukeTobin/luketobin.github.io/blob/master/images/FPS/attatch.gif" alt="" /></span></div>
@@ -1226,14 +1227,14 @@ namespace FreyPhysicsController
 							<div class="container">
 								<div class="content">
 									<h3>Inspect vs Grab</h3>
-									<p>A feature to pick up and inspect items from any angle, adjustable by the player. The object retains its original transform. The feature is useful for games genre's such as horror, puzzle or adventuer.</p>
+									<p>An invaluable addition is the ability to pick up and examine items from all angles, granting players adjustable control. Notably, the object maintains its initial transform properties throughout. This feature proves particularly advantageous for game genres like horror, puzzle-solving, and adventure, where immersive interaction with objects enriches the overall experience.</p>
 									<div class="box alt">
 										<div class="row aln-center">
 											<div class="col-8"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/FPS/inspect.gif" alt="" /></span></div>
 										</div>
 									</div>
 
-									<p>Similarly to this, the feature grab was implemented, which allows players to actually pick and move objects, with physical properties such as mass being taken into account.</p>
+									<p>In a parallel vein, the grab feature was expertly integrated, enabling players to tangibly lift and manipulate objects, while factoring in their physical attributes such as mass. This innovation amplifies the level of realism and engagement within the interactive environment.</p>
 									<div class="box alt">
 										<div class="row aln-center">
 											<div class="col-8"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/FPS/grab.gif" alt="" /></span></div>
