@@ -11,11 +11,10 @@
 			/* Custom styles for the tab container */
 			.tab-container {
 				display: flex;
-				justify-content: space-between;
 			}
 	
 			.tab-button {
-				padding: 10px 15px;
+				padding: 10px 25px;
 				background-color: #f0f0f0;
 				cursor: pointer;
 				color: #333;
@@ -142,320 +141,1390 @@
 							<h2 style="margin-top: 2em">Notable Work</h2>
 							<div class="container">
 								<div class="content">
-									<h3>Features</h3>
+									<h3>Overview</h3>
+									<p>The asset contains several independent features which can be disabled or enabled at any given time based on the projects needs. The controller is designed to be easily expandable with a decoupled SOLID approach. Some of the base features include:</p>
 									<ul>
 										<li>Movement</li>
 										<li>Wall-running</li>
 										<li>Grappling Hook</li>
-										<li>Attatching objects</li>
+										<li>Attatching/Connecting objects</li>
 										<li>Pick-up and inspect objects</li>
-										<li>Weapon Sway</li>	
+										<li>Weapon/Hand Sway</li>	
 									</ul>
 								</div>
 							</div>
 
-							<!-- Design Research -->
+							<!-- Feature -->
 							<div class="container">
 								<div class="content">
-									<h3>Design Research</h3>
-									<p>A lot of early research for this project was centered around finding an approach that would tackle sleep habits, while being ADHD friendly. This meant exploring what constitutes as being ADHD friendly. The research phase proved to be an interesting look into games and their relationship with neurotypical people. Engaging in conversation with the target audience, experts in both the games field & neurotypical sciences, produced excellent results, providing me with a Best, good & bad practices chart that let me guide my conceptulization phase and figure out the best path of action for this project.</p>
+									<h3>Dependencies</h3>
+									<p>The project is broken into several independent classes that function together. Utilizing the SOLID principle, the project allows for a decoupled approach thats easily tweakable and expandable. The system allows for quick enbaling & disabling of features from a centralized location, making it easy to pick and choose what features are needed for the prototype.</p>
 									<br />
 									<div class="box alt">
 										<div class="row aln-center">
-											<div class="col-4"><span class="image fit"><img src="../images/pic01.jpg" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="../images/pic02.jpg" alt="" /></span></div>
+											<div class="col-6"><span class="image fit"><img src="../images/FPS/dep.JPG" alt="" /></span></div>
 										</div>
 									</div>
-									<p>Some interesting work that took place during the research & conceptualization phases included:</p>
-									<ul>
-										<li>Desk & literature studies done on problem context.</li>
-										<li>Focus groups with the target audience, followed by various surveys.</li>
-										<li>Interviews with experts in various relating fields.</li>
-										<li>Market research & competitive analysis into competiting products in both habits and ADHD.</li>
-										<li>Best, good & bad practices chart compiled based on research results.</li>
-										<li>Weighed Matrix for comparing concepts.</li>
-									</ul>
-									<br />
-									<h3>Best, Good & Bad practices</h3>
 									<div class="table-wrapper">
 										<table class="alt">
 											<thead>
 												<tr>
-													<!--
 													<th>Name</th>
-													<th>Description</th>
-													-->
+													<th>Description</th>													
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td><strong>Best</strong> Habit Change</td>
-													<td>Provide <b>player feedback</b> in response features or mechanics. Positive
-														reinforcement for the user's growth through the form of rewards and
-														affirmation can provide a sense of achievement and add an interest in
-														continuing their own personal development (Pramana, et al., 2018).</td>
+													<td><strong>Movement</strong></td>
+													<td>A physics based feature that controls player movement on the <b>ground, in the air & on slopes.</b></td>
 												</tr>
 												<tr>
-													<td><strong>Good</strong> Habit Change</td>
-													<td>Allow for <b>autonomy and flexibility</b> from the user (Suleiman-Martos,
-														Grcia-Lara, & Martos-Cabrera, 2021). Irregularities can occur at any
-														time, so allowing the user to adjust their goals, progress and results
-														provide ways to tackle unpredictability in the products design.</td>
+													<td><strong>Jumping</strong></td>
+													<td>A feature which handles player jumping, with attention to game feel. Including additional features such as <b>coyote time, jump buffering, jump correction and jump height based on input.</b></td>
 												</tr>
 												<tr>
-													<td><strong>Bad</strong> Habit Change</td>
-													<td><b>Restrictiveness</b> in how the user can utilize the application, can be
-														detrimental for the user's enjoyment and engagement of the
-														application. This is especially important, when it's designed around
-														helping the user (Schmidt-Kraepelin, Warsinsky, Thiebes, & Sunyaev,
-														2020).</td>
+													<td><strong>Wall Running</strong></td>
+													<td>A feature for handling <b>horizontal movement across walls</b>, for games with parkour elements.</td>
+												</tr>
+												<tr>
+													<td><strong>Attatching</strong></td>
+													<td>A feature for <b>combining or attatching objects</b> to different parts of the world. Utilizing spring joints. The feature was inspired by <b>The Legend of Zelda: Tears of the Kingdom's fuse</b>.</td>
+												</tr>
+												<tr>
+													<td><strong>Grappling Hook</strong></td>
+													<td>A physics based feature that allows the player to use a <b>hook to get around</b>, utilizing spring joints & line renderer's.</td>
+												</tr>
+												<tr>
+													<td><strong>Inspecting</strong></td>
+													<td>A feature to view an object at different <b>angles and perspectives</b>, while keeping its original transform in tact.</td>
+												</tr>
+												<tr>
+													<td><strong>Grab & Throw</strong></td>
+													<td>A feature to physically <b>pick up, move or throw objects.</b></td>
+												</tr>
+												<tr>
+													<td><strong>Sway</strong></td>
+													<td>A feature to <b>simulate sway</b> for whatever the character is holding. The sway intensity can be adjusted per object if needed.</td>
+												</tr>
+												<tr>
+													<td><strong>Head-tilt</strong></td>
+													<td>A feature to <b>simulate head-tilt</b> based on the players perspective to add immersive game juice.</td>
 												</tr>
 											</tbody>
 											
 										</table>
-										<i>A larger chart is viewable from page 6 of the accompanying <a href = "../docs/graduation.pdf" target="_blank">thesis</a></i>
-										
+									</div>
+								</div>
+								
+							</div>
+
+							<!-- Movement, Jump, Wall-Run, Head-tilt -->
+							<div class="container">
+								<div class="content">
+									<h3>Movement</h3>
+									
+									<p>The movement feature is your stock standard approach to first person moving. The feature uses a custom physics based approach rather than using Unity's CharacterController. The movement feature is able to adjust and handle slops & air time appropriatly</p>
+
+									<p>Jumping is also implemented, while not being tightly tied to movement, allowing the possibilty of removing it based on the projects needs.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/FPS/jump.gif" alt="" /></span></div>
+										</div>
+									</div>
+
+									<p>Wall Running was implemented as a less stock-standard feature, that provides opportunities for certain prototypes. The feature includes generic game juice for wall-running, to convey momentum & horizontal movment.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/FPS/wallrun.gif" alt="" /></span></div>
+										</div>
+									</div>
+
+									<div class="tab-container">
+										<div class="tab-button" onclick="showTab('tabMove')">Movement</div>
+										<div class="tab-button" onclick="showTab('tabJump')">Jumping</div>
+										<div class="tab-button" onclick="showTab('tabWall')">Wall-Run</div>
+									</div>
+
+									<!-- CODE BLOCKS -->
+									<div class="tab-content active" id="tabMove">
+										<pre><code style="max-height: 800px;" class="csharp">
+using System.Collections.Generic;
+using System.Collections;
+using UnityEngine;
+using FMOD.Studio;
+
+namespace FreyPhysicsController
+{
+	public class Movement : MonoBehaviour
+	{
+		[Header("Dependencies")]
+		[SerializeField] private Dependencies dependencies;
+
+		[Header("Movement Properties")]
+		[SerializeField] private float walkSpeed = 6.5f;
+		[SerializeField] private float sprintSpeed = 12f;
+		[SerializeField] private float acceleration = 70f;
+		[SerializeField] private float multiplier = 10f;
+		[SerializeField] private float airMultiplier = 0.4f;
+
+		[Header("Tilt Properties")]
+		[SerializeField] private float strafeTilt = 1.1f;
+		[SerializeField] private float stafeTiltSpeed = 8f;
+
+		[Header("Drag Properties")]
+		[SerializeField] private float groundDrag = 6f;
+		[SerializeField] private float airDrag = 1f;
+
+		[Header("Ground Detection Properties")]
+		[SerializeField] private Transform groundCheck;
+		[SerializeField] private float groundCheckRadius = 0.2f;
+		[SerializeField] private float slopeAngleCheck = 0.5f;
+
+		[Header("Footstep Audio Properties")]
+		[SerializeField] private AnimationCurve footstepCurve;
+		[SerializeField] private float footstepMultiplier = 0.17f;
+		[SerializeField] private float footstepRate = 0.25f;
+
+		private float moveAmount;
+		private float horizontalMovement;
+		private float verticalMovement;
+		private float anticipatedSpeed;
+		private float playerHeight = 2f;
+		private float curveTime = 0f;
+
+		private bool movementTriggeredFootsteps;
+
+		private Camera cam;
+		private Rigidbody rb;
+		private Transform orientation;
+
+		private Vector3 moveDirection;
+		private Vector3 slopeMoveDirection;
+
+		private RaycastHit slopeHit;
+		private EventInstance playerFootsteps;
+
+		// Should be altered to be handled whatever way the current project maintains input/keybinding
+		private KeyCode sprintKey = KeyCode.LeftShift;
+
+		private void Start()
+		{
+			Initialize();
+		}
+
+		private void Update()
+		{
+			GroundCheck();
+			CalculatDirection();
+			CalculateSlope();
+			ControlSpeed();
+			ControlDrag();
+			StrafeTilt();
+			Footsteps();
+		}
+
+		private void FixedUpdate()
+		{
+			Move();
+		}
+
+		private void Initialize()
+		{
+			//Set player on the ignore raycast layer
+			transform.gameObject.layer = 2;
+			
+			// Setup dependencies
+			rb = dependencies.rb;
+			cam = dependencies.cam;
+			orientation = dependencies.orientation;
+
+			// FMOD
+			playerFootsteps = AudioManager.Instance.CreateInstance(FMODEvents.Instance.playerFootsteps);
+
+			// Set rigidbody properties
+			rb.freezeRotation = true;
+			rb.mass = 50;
+		}
+
+		private void GroundCheck()
+		{
+			dependencies.isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius);
+			if(!dependencies.isGrounded)
+			{
+				// Fadeout footsteps if the player is not grounded
+				PLAYBACK_STATE playbackState;
+				playerFootsteps.getPlaybackState(out playbackState);
+				if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+				{
+					playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+					movementTriggeredFootsteps = false;
+				}
+			}
+		}
+
+		private void CalculatDirection()
+		{
+			horizontalMovement = Input.GetAxisRaw("Horizontal");
+			verticalMovement = Input.GetAxisRaw("Vertical");
+
+			// Set calculated direction
+			moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+		}
+
+		private void CalculateSlope()
+		{
+			// Get slope Vector in regard to direction and normal orthogonal to said plane
+			slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+		}
+
+		private void ControlSpeed()
+		{
+			anticipatedSpeed = Input.GetKey(sprintKey) && dependencies.isGrounded ? sprintSpeed : walkSpeed;
+			moveAmount = Mathf.Lerp(moveAmount, anticipatedSpeed, acceleration * Time.deltaTime);
+		}
+
+		// Add drag to movement
+		private void ControlDrag() => rb.drag = dependencies.isGrounded ? groundDrag : airDrag;
+
+		private void StrafeTilt()
+		{
+			// Calculate tilt direction
+			if(horizontalMovement != 0f)
+			{
+				dependencies.tilt = Mathf.Lerp(dependencies.tilt, horizontalMovement < 0f ? strafeTilt : -strafeTilt, stafeTiltSpeed * Time.deltaTime);
+			}
+		}
+
+		// Footstep Audio, can be decoupled further based on accompanying features
+		private void Footsteps()
+		{
+			if(dependencies.isGrounded || dependencies.isWallRunning)
+			{
+				if(!dependencies.isVaulting && !dependencies.isInspecting)
+				{
+					// Combine input
+					Vector2 inputVector = new Vector2(horizontalMovement, verticalMovement);
+
+					// Start curve timer
+					if(inputVector.magnitude > 0f)
+					{
+						//Curve timer
+						if(dependencies.isGrounded)
+						{
+							curveTime += Time.deltaTime * footstepRate * moveAmount;
+						}
+						else if(dependencies.isWallRunning)
+						{
+							curveTime += Time.deltaTime * footstepRate * 2.5f * moveAmount;
+						}
+
+						//Reset time, loop time and play footstep sound
+						if(curveTime >= 1f)
+						{
+							// FMOD Audio
+							PLAYBACK_STATE playbackState;
+							playerFootsteps.getPlaybackState(out playbackState);
+							if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+							{
+								playerFootsteps.start();
+								movementTriggeredFootsteps = true;
+							}
+
+							curveTime = 0f;
+						}
+					}
+					// Fadeout / Clear footstep audio being played
+					else if(movementTriggeredFootsteps)
+					{
+						PLAYBACK_STATE playbackState;
+						playerFootsteps.getPlaybackState(out playbackState);
+						if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+						{
+							playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+							movementTriggeredFootsteps = false;
+						}
+					}
+				}
+
+				//Adjust camera height to animation curve value for bobbing effect when moving
+				cam.transform.localPosition = new Vector3(cam.transform.localPosition.x, footstepCurve.Evaluate(curveTime) * footstepMultiplier, cam.transform.localPosition.z);
+			}
+		}
+
+		private bool OnSlope()
+		{
+			if(Physics.Raycast(rb.transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
+			{
+				if(slopeHit.normal != Vector3.up)              
+					return true;              
+				else
+					return false;
+			}
+			return false;
+		}
+
+		// Apply player movement
+		private void Move()
+		{
+			// Generic Movement
+			if(dependencies.isGrounded && !dependencies.isInspecting && !OnSlope())
+			{
+				rb.AddForce(moveDirection.normalized * moveAmount * multiplier, ForceMode.Acceleration);
+			}
+
+			// On a slope
+			if(dependencies.isGrounded && OnSlope())
+			{
+				rb.AddForce(slopeMoveDirection.normalized * moveAmount * multiplier, ForceMode.Acceleration);
+			}
+
+			// In the air / not grounded
+			if(!dependencies.isGrounded)
+			{
+				rb.AddForce(moveDirection.normalized * moveAmount * multiplier * airMultiplier, ForceMode.Acceleration);
+			}
+		}
+	}
+}
+											
+										</code></pre>
+									</div>
+								
+									<div class="tab-content" id="tabJump">
+										<pre ><code style="max-height: 800px;" class="csharp">
+using UnityEngine;
+using FreyPhysicsController;
+
+namespace FreyPhysicsController
+{
+	public class Jump : MonoBehaviour
+	{
+		[Header("Dependencies")]
+		[SerializeField] private Dependencies dependencies;
+
+		[Header("Input Properties")]
+		[SerializeField] private KeyCode jumpKey = KeyCode.Space;
+
+		[Header("Jumping Properties")]
+		[SerializeField] private float amount = 14f;
+		[SerializeField] private float cooldown = 15f;
+
+		[Header("Landing Properties")]
+		[SerializeField] private float distanceBeforeForce = 25f;
+		[SerializeField] private float rateBeforeForce = -15f;
+		[SerializeField] private float hardLandForce = 0.25f;
+
+		private float nextTimeToJump = 0f;
+		private bool landed = true;
+		
+		private Vector3 newFallVelocity;
+		private Rigidbody rb;
+		private RaycastHit falltHit;
+
+		private void Start()
+		{
+			Initialize();
+		}
+
+		private void Update()
+		{
+			Land();
+		}
+
+		private void FixedUpdate()
+		{
+			SimulateJump();
+			Fall();
+		}
+
+		private void Initialize()
+		{
+			rb = dependencies.rb;
+		}
+
+		//Initiate jump
+		private void SimulateJump()
+		{
+			if (Input.GetKey(jumpKey) && dependencies.isGrounded && !dependencies.isWallRunning && !dependencies.isInspecting && Time.time >= nextTimeToJump)
+			{
+				nextTimeToJump = Time.time + 1f / cooldown;
+
+				rb.AddForce(Vector3.up * (amount - rb.velocity.y), ForceMode.VelocityChange);
+			}
+		}
+
+		private void Fall()
+		{
+			if (!dependencies.isGrounded && rb.velocity.y < rateBeforeForce && Physics.Raycast(rb.transform.position, Vector3.down, out fallHit, distanceBeforeForce))
+			{
+				//Apply additional force towards ground if falling faster the fall rate
+				rb.velocity += Vector3.up * (-hardLandForce);
+			}   
+		}
+
+		private void Land() => landed = dependencies.isGrounded ? true : false;
+	}
+}
+											
+										</code></pre>
+									</div>
+
+									<div class="tab-content" id="tabWall">
+										<pre ><code style="max-height: 800px;" class="csharp">
+using UnityEngine;
+using FreyPhysicsController;
+
+namespace FreyPhysicsController
+{
+	public class WallRun : MonoBehaviour
+	{
+		[Header("Dependencies")]
+		[SerializeField] private Dependencies dependencies;
+
+		[Header("Detection Properties")]
+		[SerializeField] private float wallCheckDistance = 1f;
+		[SerializeField] private float minOffGroundHeight = 1f;
+
+		[Header("Wall Run Properties")]
+		[SerializeField] private float onWallGravity = 2f;
+		[SerializeField] private float onWallJumpAmount = 8f;
+
+		[Header("Wall Run Camera Properties")]
+		[SerializeField] private float onWallFov = 65f;
+		[SerializeField] private float fovChangeSpeed = 10f;
+		[SerializeField] private float onWallTilt = 20f;
+		[SerializeField] private float onWallTiltSpeed = 5f;
+
+		[Header("Audio Properties")]
+		[SerializeField] private AudioClip wallJumpSound;
+
+		private float fov = 60;
+
+		private bool wallLeft = false;
+		private bool wallRight = false;
+		private bool jumping = false;
+		private bool gravityChange = false;
+
+		private RaycastHit leftWallHit;
+		private RaycastHit rightWallHit;
+
+		private Rigidbody rb;
+		private Camera cam;
+		private CapsuleCollider cc;
+		private Transform orientation;
+		private Vector3 jumpDirection;
+
+		private void Start()
+		{
+			Initialize();
+		}
+
+		private void Update()
+		{
+			CheckWall();
+			WallRunning();
+		}
+
+		private void FixedUpdate()
+		{
+			WallRunPhysics();
+		}
+
+		private void Initialize()
+		{
+			rb = dependencies.rb;
+			cam = dependencies.cam;
+			cc = dependencies.cc;
+			orientation = dependencies.orientation;
+			audioSource = dependencies.audioSourceBottom;
+
+			fov = cam.fieldOfView;
+		}
+
+		//Check if possible to wall run (is off the ground)
+		private bool CanWallRun()
+		{
+			return !Physics.Raycast(rb.transform.position + new Vector3(0, cc.height / 2, 0), Vector3.down, minOffGroundHeight);
+		}
+
+		//Check sides for walls
+		private void CheckWall()
+		{
+			wallLeft = Physics.Raycast(rb.transform.position, -orientation.right, out leftWallHit, wallCheckDistance);
+			wallRight = Physics.Raycast(rb.transform.position, orientation.right, out rightWallHit, wallCheckDistance);
+		}
+
+		private void WallRunning()
+		{
+			if (!CanWallRun())
+			{
+				ExitWallRun();
+				return;
+			}
+
+			if (!dependencies.isGrounded || (!wallLeft && !wallRight))
+			{
+				ExitWallRun();
+				return;
+			}
+
+			rb.useGravity = false;
+			dependencies.isWallRunning = true;
+
+			TransitionFOV();
+			TransitionTilt();
+
+			if (!gravityChange)
+			{
+				gravityChange = true;
+			}
+
+			WallRunJump();
+		}
+
+		private void ExitWallRun()
+		{
+			jumping = false;
+			gravityChange = false;
+			rb.useGravity = true;
+			dependencies.isWallRunning = false;
+
+			ResetFOV();
+		}
+
+		private void TransitionFOV()
+		{
+			var fovSpeed = fovChangeSpeed * Time.deltaTime;
+			cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, onWallFov, fovSpeed);
+		}
+
+		private void TransitionTilt()
+		{
+			var tiltSpeed = onWallTiltSpeed * Time.deltaTime;
+			float targetTilt = wallLeft ? -onWallTilt : (wallRight ? onWallTilt : 0f);
+			dependencies.tilt = Mathf.Lerp(dependencies.tilt, targetTilt, tiltSpeed);
+		}
+
+		private void WallRunJump()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				if (wallLeft)
+				{
+					jumpDirection = rb.transform.up * 1.8f + leftWallHit.normal;
+				}
+				else if (wallRight)
+				{
+					jumpDirection = rb.transform.up + rightWallHit.normal;
+				}
+
+				if (!jumping)
+				{
+					jumping = true;
+				}
+			}
+		}
+
+		private void WallRunPhysics()
+		{
+			//Wall run gravity
+			if(gravityChange)
+			{
+				rb.AddForce(Vector3.down * (onWallGravity * 0.01f), ForceMode.VelocityChange);
+			}
+
+			//Wall run jump
+			if(jumping)
+			{
+				rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); 
+				rb.AddForce(jumpDirection * (onWallJumpAmount * 0.05f), ForceMode.VelocityChange);
+			}
+		}
+	}
+}
+											
+										</code></pre>
+									</div>
+									<!-- END OF CODE BLOCKS -->	
+
+								</div>
+							</div>
+
+							<!-- Grappling Hook, Attatch -->
+							<div class="container">
+								<div class="content">
+									<h3>Grappling Hook</h3>
+									<p>The grappling-hook feature allows players to swing around your level utilizing Unity's SpringJoints.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/FPS/grapple.gif" alt="" /></span></div>
+										</div>
 									</div>
 									
-									<!--
-									<div class="tab-container">
-										<div class="tab-button" onclick="showTab('snippet1')">Snippet 1</div>
-										<div class="tab-button" onclick="showTab('snippet2')">Snippet 2</div>
-									</div>
-
-									<div class="tab-content active" id="snippet1">
-										<pre ><code class="csharp">
-public class StaticUnit : UnitObject
-{
-	[Header("Static Settings")]
-	[SerializeField] bool playerBase;
-
-	public override void Start() {
-		SearchRadius = 6; 
-		bm = BattleManager.Instance;
-		SetupShaders();
-	}
-	
-	public override void Update() {
-		if(AttackSpeed > 0) DoAttacking();
-	}
-	
-	public override void KillUnit()
-	{
-		if(GetComponent<Entity>())
-			GetComponent<Entity>().Kill();
-		else
-			Debug.LogWarning("Trying to destroy entity, but failed: " + gameObject.name);
-
-		OnDeath.Invoke();
-	}
-
-	public override void RecieveDamage(float dmg)
-	{
-		Health -= dmg;
-		if(Health <= 0){
-			if(!playerBase) KillUnit();
-			if(playerBase) GameManager.Instance.EndRun();
-		}
-
-		statText.text = "-" + dmg;
-		statText.color = damageColor;
-		statText.DOFade(0, popupTextTime);
-
-		if(playerBase)
-			PlayerBase.Instance.ShowHealthText();
-	}
-
-	public override void DoAttacking()
-	{
-		if(attackTargetList.Count <= 0) return;
-
-		float distance = Vector2.Distance(transform.position, attackTargetList[0].gameObject.transform.position);
-
-		if(distance <= AttackRange && !sentAttack){
-			sentAttack = true;
-			Invoke("Attack", AttackSpeed);
-		}
-	}
-}
-										</code></pre>
-									</div>
-								
-									<div class="tab-content" id="snippet2">
-										<pre ><code class="csharp">
-public class StaticUnit : UnitObject
-{
-	[Header("Static Settings")]
-	[SerializeField] bool playerBase;
-
-	public override void Start() {
-		SearchRadius = 6; 
-		bm = BattleManager.Instance;
-		SetupShaders();
-	}
-	
-	public override void Update() {
-		if(AttackSpeed > 0) DoAttacking();
-	}
-}
-										</code></pre>
-									</div>
-
-								-->
-								</div>
-								
-							</div>
-
-							<!-- Development -->
-							<div class="container">
-								<div class="content">
-									<h3>Development</h3>
-									<p>Following the conceptualization, work was done to bring the ideated concept to life. Mockups were drawn up and testing was done with the target audience. The product aimed to alleviate bad sleep habits through intrinsic motivation and inadvertent learning, as the user took care of a virtual pet that symbolized their own sleep hygeine/health.
-									<p>the product went through several iterations, exploring areas that were later discarded such as mini-games and cosmetics. Features such as this were explored as they typically appeared in both general gamification products and virtual pet games. With the limited scope and intention of the product being clear, it was decided to scrap the features and focus on features with more immediate results and potential. The clearly defined focus allowed for a more clear path for success in the development of the app.</p>
-									<br />
+									<p>The features implementation also allowed for interesting experiments with an attatching feature. The feature combines two objects together using SpringJoints, similar to that of The Legend of Zelda: Tears of the Kingdom, just in a more "ragdoll" manner.</p>
 									<div class="box alt">
 										<div class="row aln-center">
-											<div class="col-4"><span class="image fit"><img src="../images/pic03.jpg" alt="" />product development</span></div>
-											<div class="col-4"><span class="image fit"><img src="../images/pic04.jpg" alt="" />gameplay loop</span></div>
+											<div class="col-8"><span class="image fit"><img src="../images/FPS/attatch.gif" alt="" /></span></div>
 										</div>
 									</div>
 
-									<p>Some interesting work that took place during the development phase included:</p>
-									<ul>
-										<li>Working with Android's Native Plugin for Unity. Creating systems which allowed for access to android phone features such as alarms and input monitoring</li>
-										<li>Creating a streak system similar to that of Duolingo.</li>
-										<li>Implementing a system that can handle habit customization and savable user routines.</li>
-										<li>Implementing a system which tracks user progression over days & weeks and gives customized feedback based on the results.</li>
-										<li>Implementing a responsive UI that works on multiple resolutions and devices.</li>
-										<li>Implementing a binary-formatter save system.</li>
-										<li>Implementing a tutorial for teaching new users how the application works.</li>
-										<li>Utilizing SOLID throughout the projects archietecture, to ensure a smoother development experience</li>
-									</ul>
-									<br />
-									<p>One of the more challenging parts of developing the app, was working with Android's Native Plugin, the plugin was under-documented and lacked online support for features that were under-utilized such as alarm setting. This meant becoming more familar with the plugin and solving some of the long-lasting problems with it. Below is an extract of the code written to handle alarm setting from Unity. Some issues reolved around C# not having access to ArrayLists, meaning you would have to create your own utilizing Android's Native Plugin.</p>
-									<pre><code>using UnityEngine;
-using System.Collections;
+									<pre><code style="max-height: 800px;" class="csharp">
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine;
 
-public class Alarm : MonoBehaviour
-{   
-  //https://developer.android.com/guide/components/intents-common#Clock
-  private const string ACTION_SET_ALARM = "android.intent.action.SET_ALARM";
-  private const string EXTRA_HOUR = "android.intent.extra.alarm.HOUR";
-  private const string EXTRA_MINUTES = "android.intent.extra.alarm.MINUTES";
-  private const string EXTRA_MESSAGE = "android.intent.extra.alarm.MESSAGE";
-  private const string EXTRA_VIBRATE = "android.intent.extra.alarm.VIBRATE";
-  private const string EXTRA_DAYS = "android.intent.extra.alarm.DAYS";
-
-  public void OnClick(AlarmSettings settings)
-  {
-    string finalName = settings.Name();
-    if(finalName == string.Empty) finalName = "Sleep Pet";
-    CreateAlarm(finalName, settings.Hour, settings.Minute, settings.Vibrate(), settings.Days());
-  }
-
-  private void CreateAlarm(string message, int hour, int minutes, bool vibrate, List<int> m_Days)
-  {
-    var intentAJO = new AndroidJavaObject("android.content.Intent", ACTION_SET_ALARM);
-    intentAJO
-      .Call<AndroidJavaObject>("putExtra", EXTRA_MESSAGE, message)
-      .Call<AndroidJavaObject>("putExtra", EXTRA_HOUR, hour)
-      .Call<AndroidJavaObject>("putExtra", EXTRA_MINUTES, minutes)
-      .Call<AndroidJavaObject>("putExtra", EXTRA_VIBRATE, vibrate);
-
-    // Custom ArrayList int
-    if(m_Days != null && m_Days.Count > 0){ // if days should repeat
-
-      // get an instance of a Java ArrayList
-      AndroidJavaObject arrayList = new AndroidJavaObject("java.util.ArrayList");
-
-      // get an instance of java Integer class : 
-      // ArrayLists use generics, so a type doesnt need to be assigned to them on creation
-      // Java's generics try to match C#'s int against Java data types - in this case int does not exist
-      // Thus in order to get a suitable match we need to create an instance of an unsigned Integer
-      AndroidJavaClass integerClass = new AndroidJavaClass("java.lang.Integer"); 
-
-      // Loop through a list of int's that correspond with key's for the Java Calender classes enum for Days
-      for(int i = 0;i < m_Days.Count;i++){
-        // using CallStatic over Call lets us access the static method to interpret non-native data types in Java
-        // This lets us convert the C#/C/C++ implementation of int too Java's Integer type
-        AndroidJavaObject intToInteger = integerClass.CallStatic<AndroidJavaObject>("valueOf", m_Days[i]);
-
-        // Now that the type is native to Java, it's possible to access the ArrayList like intended
-        arrayList.Call<bool>("add", intToInteger);
-      }
-
-      // Add the list to the EXTRA_DAYS android intents
-      intentAJO.Call<AndroidJavaObject>("putExtra", EXTRA_DAYS, arrayList);
-    }
+namespace FreyPhysicsController
+{
+	public class GrapplingHook : MonoBehaviour
+	{
+		[Header("Dependencies")]
+		[SerializeField] private Dependencies dependencies;
 		
-    GetUnityActivity().Call("startActivity", intentAJO);
-  }
+		[Header("Hook Properties")]
+		[SerializeField] private GameObject hookModel;
+		[SerializeField] private float holdDelayToSwing = 0.2f;
+		[SerializeField] private float playerRetractStrength = 1000f;
+		[SerializeField] private float retractStrength = 500f; 
+		[SerializeField] private float latchOnImpulse = 200f;
+		
+		[Header("Rope Properties")]
+		[SerializeField] private Material ropeMaterial;
+		[SerializeField] private float startThickness = 0.02f;
+		[SerializeField] private float endThickness = 0.06f;
 
-  AndroidJavaObject GetUnityActivity()
-  {
-    using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-    {
-      return unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-    }
-  }
+		[Header("Rope Visual Spring Properties")]
+		[SerializeField] private int segments = 50;
+		[SerializeField] private float damper = 12;
+		[SerializeField] private float springStrength = 800;
+		[SerializeField] private float speed = 12;
+		[SerializeField] private float waveCount = 5;
+		[SerializeField] private float waveHeight = 4;
+		[SerializeField] private AnimationCurve affectCurve;
+
+		[HideInInspector]
+		[SerializeField] private List<GameObject> hooks, hookModels, hookLatches, ropeColliders;
+		[HideInInspector]
+		[SerializeField] private List<LineRenderer> ropes;
+
+		private float mouseDownTimer = 0;
+
+		private bool executeHookSwing = false;
+		private bool hookRelease = false;
+		private bool hooked = false;
+		private bool isOptimizing = false;
+
+		private Rigidbody player;
+		private Transform spawnPoint;
+		private Spring spring;
+
+		private Ray ray;
+		private RaycastHit hit;
+
+		private void Start()
+		{
+			Initialize();
+			CreateSpring();
+		}
+
+		private void Update()
+		{
+			InputCheck();
+			CreateHooks();
+			RetractHooks();
+			CutRopes();
+		}
+
+		private void LateUpdate()
+		{
+			DrawRopes();
+		}
+		
+		private void Initialize()
+		{
+			player = dependencies.rb;
+			spawnPoint = dependencies.spawnPoint;
+		}
+
+		private void CreateSpring()
+		{
+			spring = new Spring();
+			spring.SetTarget(0);
+		}
+
+		private void InputCheck()
+		{
+				//Reset checker
+				if(Input.GetMouseButtonDown(1) && !Input.GetKey(KeyCode.LeftControl) && !dependencies.isInspecting)
+				{
+					mouseDownTimer = 0;
+					hookRelease = false;
+					executeHookSwing = false;
+				}
+
+				//Check input for hook to swing
+				if(Input.GetMouseButton(1) && !Input.GetKey(KeyCode.LeftControl) && !dependencies.isInspecting)
+				{
+					mouseDownTimer += Time.deltaTime;
+
+					if(hooked && mouseDownTimer >= holdDelayToSwing && !executeHookSwing)
+					{
+						executeHookSwing = true;
+					}
+				}
+
+				//Check input for hook to latch
+				if(Input.GetMouseButtonUp(1) && !Input.GetKey(KeyCode.LeftControl) && mouseDownTimer >= holdDelayToSwing && executeHookSwing && !dependencies.isInspecting)
+				{
+					executeHookSwing = false;
+					hookRelease = true;
+				}
+		}
+
+
+		//Create Hooks
+		private void CreateHooks()
+		{
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (Input.GetMouseButtonDown(1) && !Input.GetKey(KeyCode.LeftControl) && !dependencies.isInspecting)
+			{
+				if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Ignore Raycast")), QueryTriggerInteraction.Ignore))
+				{
+					if (hit.transform.gameObject.GetComponent<Rigidbody>() == null)
+					{
+						hit.transform.gameObject.AddComponent<Rigidbody>().isKinematic = true;
+					}
+				}
+
+				if (!hooked)
+				{
+					CreateFirstHook();
+				}
+				else if (hooked)
+				{
+					CreateHookLatch();
+				}
+			}
+		}
+
+		private void CreateFirstHook()
+		{
+			if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Ignore Raycast")), QueryTriggerInteraction.Ignore))
+			{
+				if (!hit.collider.isTrigger && hit.collider.gameObject.GetComponent<Rigidbody>() != player)
+				{
+					hooked = true;
+
+					// Create hook and related objects
+					CreateHookObject(hit.point);
+
+					// Set hook rope values
+					SetupHookRope();
+
+					// Set joint parameters and player's spring joint
+					SetupPlayerSpringJoint();
+				}
+			}
+		}
+
+		private void CreateHookLatch()
+		{
+			if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Ignore Raycast")), QueryTriggerInteraction.Ignore))
+			{
+				if (!hit.collider.isTrigger && hit.collider.gameObject.GetComponent<Rigidbody>() != player)
+				{
+					// Create hook latch and related objects
+					CreateHookLatchObject(hit.point);
+
+					// Remove hook start point model and add hook latch point model
+					ModifyHookModels();
+
+					// Update joint parameters and spring joint
+					UpdateHookSpringJoint();
+
+					// Enable rope collider and perform optimization
+					OptimizeRopeCollider();
+
+					// Reset hooked state and retract
+					hooked = false;
+					Retract();
+				}
+			}
+		}
+
+		//Retract hooked objects
+		private void RetractHooks()
+		{
+			//Set player hook swing strength
+			if(executeHookSwing &&player.GetComponent<SpringJoint>() && player.GetComponent<SpringJoint>().spring != playerRetractStrength)
+			{
+				player.GetComponent<SpringJoint>().spring = playerRetractStrength;
+			}
+
+			//Set player hook retract strength
+			if(Input.GetMouseButtonDown(2) && !dependencies.isInspecting)
+			{
+				Retract();
+			}
+		}
+
+		private void Retract()
+		{
+			if (player.GetComponent<SpringJoint>() != null)
+			{
+				player.GetComponent<SpringJoint>().spring = playerRetractStrength;
+			}
+
+			//Set all other hook and latched retract strengths
+			foreach (GameObject hookJoints in hooks)
+			{
+				if (hookJoints.GetComponent<SpringJoint>() && hookJoints.GetComponent<SpringJoint>().connectedBody != player)
+				{
+					hookJoints.GetComponent<SpringJoint>().spring = retractStrength;
+				}
+			}
+		}
+
+		private void CutRopes()
+		{
+			//Destroy player hooks upon hold release
+			if(hookRelease && hooked)
+			{
+				hookRelease = false;
+
+				if(hooks.Count > 0)
+				{
+					Destroy(player.GetComponent<SpringJoint>());
+					Destroy(hooks[hooks.Count - 1].gameObject);
+					hooks.RemoveAt(hooks.Count - 1);
+				}
+
+				if(ropeColliders.Count > 0)
+				{
+					Destroy(ropeColliders[ropeColliders.Count - 1].gameObject);
+					ropeColliders.RemoveAt(ropeColliders.Count - 1);
+				}
+
+				if(hookModels.Count > 0)
+				{
+					Destroy(hookModels[hookModels.Count - 1].gameObject);
+					hookModels.RemoveAt(hookModels.Count - 1);
+				}
+
+				if(ropes.Count > 0)
+				{
+					ropes.RemoveAt(ropes.Count - 1);
+				}
+						
+				hooked = false;
+				hookRelease = false;
+			}
+
+			if(Input.GetMouseButton(1) && Input.GetKey(KeyCode.LeftControl) && !dependencies.isInspecting)
+			{
+				//If attached to player
+				if(hooked)
+				{
+					if(hooks.Count > 0)
+					{
+						Destroy(player.GetComponent<SpringJoint>());
+						Destroy(hooks[hooks.Count - 1].gameObject);
+						hooks.RemoveAt(hooks.Count - 1);
+					}
+
+					if(ropeColliders.Count > 0)
+					{
+						Destroy(ropeColliders[ropeColliders.Count - 1].gameObject);
+						ropeColliders.RemoveAt(ropeColliders.Count - 1);
+					}
+
+					if(hookModels.Count > 0)
+					{
+						Destroy(hookModels[hookModels.Count - 1].gameObject);
+						hookModels.RemoveAt(hookModels.Count - 1);
+					}
+
+					if(ropes.Count > 0)
+					{
+						ropes.RemoveAt(ropes.Count - 1);
+					}
+						
+					hooked = false;
+				}
+				else if(!hooked && Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, ~(1 << LayerMask.NameToLayer("Ignore Raycast")))) 
+				{
+					if(hit.collider.isTrigger)
+					{
+						int index = GameObjectToIndex(hit.collider.gameObject);
+						
+						Destroy(hooks[index].gameObject);
+						Destroy(hookLatches[index].gameObject);
+						Destroy(ropeColliders[index].gameObject);
+
+						hooks.RemoveAt(index);
+						hookLatches.RemoveAt(index);
+						ropes.RemoveAt(index);
+						ropeColliders.RemoveAt(index);
+
+						if(hooks.Count == 0)
+						{
+							hooked = false;
+						}
+					}
+
+					//Clean up the hook model list if missing after the models get destroyed
+					for(var i = hookModels.Count - 1; i >= 0; i--)
+					{
+						if(hookModels[i] == null)
+						{
+							hookModels.RemoveAt(i);
+						}
+					}
+				}
+			}
+
+			//Destroy everything created and clear all lists
+			if(Input.GetKeyDown("r") && !dependencies.isInspecting)
+			{
+				hooked = false;
+
+				//Destroy joints and objects
+				if(hooks.Count > 0)
+				{
+					if(player.GetComponent<SpringJoint>())
+					{
+						Destroy(player.GetComponent<SpringJoint>());
+					}
+
+					foreach(GameObject hookObjects in hooks)
+					{
+						Destroy(hookObjects);
+					}
+						
+					foreach(GameObject hookLatchObjects in hookLatches)
+					{
+							Destroy(hookLatchObjects);
+					}
+
+					foreach(GameObject ropeColliderObjects in ropeColliders)
+					{
+							Destroy(ropeColliderObjects);
+					}
+
+					foreach(GameObject hookModelObjects in hookModels)
+					{
+						Destroy(hookModelObjects);
+					}
+					
+					//Clear all lists
+					hooks.Clear();
+					hookModels.Clear();
+					hookLatches.Clear();
+					ropes.Clear();
+					ropeColliders.Clear();
+				}
+			}
+		}
+
+
+		//Draw ropes
+		private void DrawRopes()
+		{
+			if (ropes.Count != 0 && ropes.Count == hooks.Count)
+			{
+				for (int i = 0; i < ropes.Count; i++)
+				{
+					if (player.GetComponent<SpringJoint>() != null && player.GetComponent<SpringJoint>().connectedBody == hooks[i].GetComponent<Rigidbody>())
+					{
+						HandlePlayerGrapple(i);
+					}
+					else if (hooks[i].GetComponent<SpringJoint>() != null && hooks[i].GetComponent<SpringJoint>().connectedBody != player && ropes[i].positionCount > 2)
+					{
+						HandleNonPlayerGrapple(i);
+					}
+					else if (hooks[i].GetComponent<SpringJoint>() != null && hooks[i].GetComponent<SpringJoint>().connectedBody != player && ropes[i].positionCount == 2)
+					{
+						ropes[i].SetPosition(0, hooks[i].transform.position);
+						ropes[i].SetPosition(1, hookLatches[i].transform.position);
+					}
+
+					UpdateRopeCollider(i);
+				}
+			}
+		}
+
+		private void HandlePlayerGrapple(int i)
+		{
+			// Transition spring properties
+			spring.SetDamper(damper);
+			spring.SetStrength(springStrength);
+			spring.Update(Time.deltaTime);
+
+			// ... Handle spring and rope visuals ...
+		}
+
+		private void HandleNonPlayerGrapple(int i)
+		{
+			// Transition spring properties
+			spring.SetDamper(damper);
+			spring.SetStrength(springStrength);
+			spring.Update(Time.deltaTime);
+
+			// ... Handle spring and rope visuals ...
+
+			if (isOptimizing)
+			{
+				StartCoroutine(DelayOptimization(i));
+			}
+		}
+
+		private IEnumerator DelayOptimization(int i)
+		{
+			yield return new WaitForSeconds(1);
+
+			if (ropes.Count > 1 && i != ropes.Count)
+			{
+				ropes[ropes.Count - 2].positionCount = 2;
+			}
+
+			isOptimizing = false;
+		}
+
+		private void UpdateRopeCollider(int i)
+		{
+			if (ropeColliders.Count > 0 && hooks[i].GetComponent<SpringJoint>() != null)
+			{
+				// ... Update rope collider position and size ...
+			}
+		}
+
+
+		//Rope collider Index checker for cutting
+		private int GameObjectToIndex(GameObject ropeColliderList)
+		{
+			for (int i = 0; i < ropeColliders.Count; i++)
+			{
+				//Check if A rope collider is in the List
+				if (ropeColliders[i] == ropeColliderList)
+				{
+					//Return the current index
+					return i;
+				}
+			}
+			//Return if nothing
+			return -1;
+		}
+	}
 }
-										
 									</code></pre>
-									<p></p>
 								</div>
 							</div>
 
-							<!-- Brand Integration -->
+							<!-- Inspect vs Grab -->
 							<div class="container">
 								<div class="content">
-									<h3>Brand Integration</h3>
-									<p>Integrating your client's brand in your product can be done by finding out the primary
-										focus of the brand. For my case, that's neurodivergent art therapy. Since the project already
-										has a clear audience and goal that aligns with the client brand, finding alternative avenues
-										to boost its correlation can be great. Consistency and cohesion across brand products can
-										be an important indicator of brand reliability. For this I utilized the
-										colour palette and font styling of my client's website and serialized comics within the
-										application, to showcase they're coming from the same brand. This in turn will give the
-										product a similar goal and focus as the client's other projects and have a cohesive connection
-										between them</p>
+									<h3>Inspect vs Grab</h3>
+									<p>A feature to pick up and inspect items from any angle, adjustable by the player. The object retains its original transform. The feature is useful for games genre's such as horror, puzzle or adventuer.</p>
 									<div class="box alt">
 										<div class="row aln-center">
-											<div class="col-4"><span class="image fit"><img src="../images/pic05.jpg" alt="" />brand</span></div>
-											<div class="col-4"><span class="image fit"><img src="../images/pic06.jpg" alt="" />comics</span></div>
-										</div>
-									</div>
-									<p>After explaining the
-										client and problem context, I noticed that although I followed techniques to incorporate
-										brand identity into the product, such as using similar colour palettes or having a shared
-										target audience, the product felt like it was lacking meaningful connection to the client. To
-										alleviate this, I felt it was a great opportunity to incorporate the clients serialized comic
-										series into the application. As a reward for increasing the pet's level through following a
-										bedtime ritual and getting proper sleep, the user is rewarded with a new chapter of the
-										client's comic series</p>
-									<div class="box alt">
-										<div class="row aln-center">
-											<div class="col-4"><span class="image fit"><img src="../images/pic07.jpg" alt="" />unlockables</span></div>
+											<div class="col-8"><span class="image fit"><img src="../images/FPS/inspect.gif" alt="" /></span></div>
 										</div>
 									</div>
 
+									<p>Similarly to this, the feature grab was implemented, which allows players to actually pick and move objects, with physical properties such as mass being taken into account.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/FPS/grab.gif" alt="" /></span></div>
+										</div>
+									</div>
+
+									<div class="tab-container">
+										<div class="tab-button" onclick="showTab('tabInspect')">Inspect</div>
+										<div class="tab-button" onclick="showTab('tabGrab')">Grab</div>
+									</div>
+
+									<!-- CODE BLOCKS -->
+									<div class="tab-content active" id="tabInspect">
+										<pre><code style="max-height: 800px;" class="csharp">
+using System.Collections.Generic;
+using UnityEngine;
+using FreyPhysicsController;
+
+namespace FreyPhysicsController
+{
+	public class Inspect : MonoBehaviour
+	{
+		[Header("Dependencies")]
+		[SerializeField] private Dependencies dependencies;
+
+		[Header("Input Properties")]
+		[SerializeField] private KeyCode addToListKey = KeyCode.I;
+		[SerializeField] private KeyCode inspectKey = KeyCode.E;
+
+		[Header("Inspection Properties")]
+		[SerializeField] private GameObject inspectIcon;
+		[SerializeField] private GameObject aimDot;
+		[SerializeField] private float maxPickupDistance = 6;
+		[SerializeField] private float pickupSpeed = 5f;
+		[SerializeField] private float rotateSpeed = 2f;
+		[SerializeField] private float zoomSpeed = 0.2f;
+
+		[Header("Inspect & Disable Lists")]
+		[SerializeField] private List<Collider> objectsToInspect;
+		[SerializeField] private List<Collider> objectsToIgnore;
+
+		private float rotX, rotY;
+		
+		private Camera cam;
+		private Transform inspectPoint;
+		private GameObject inspectedObject;
+
+		private Vector3 objectOrigin;
+		private Vector3 originalDistance;
+
+		private Quaternion objectRotation;
+
+		private Ray ray;
+		private RaycastHit hit;
+
+		private void Start()
+		{
+			Initialize();
+		}
+
+		private void Update()
+		{
+			Inspection();
+		}
+
+		void Initialize()
+		{
+			cam = dependencies.cam;
+			inspectPoint = dependencies.inspectPoint;
+		}
+
+		private void Inspection()
+		{
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (dependencies.isInspecting)
+			{
+				HandleInspectionExit();
+			}
+			else if (!dependencies.isInspecting && !dependencies.isGrabbing)
+			{
+				HandleInspectionEntry();
+			}
+
+			if (dependencies.isGrabbing)
+			{
+				inspectIcon.SetActive(false);
+			}
+
+			if (dependencies.isInspecting && inspectedObject != null)
+			{
+				HandleInspectionInProgress();
+			}
+			else if (!dependencies.isInspecting && inspectedObject != null)
+			{
+				HandleInspectionExitCleanup();
+			}
+		}
+
+		private void HandleInspectionEntry()
+		{
+			if (Physics.Raycast(ray.origin, ray.direction, out hit, maxPickupDistance, ~(1 << LayerMask.NameToLayer("Ignore Raycast")), QueryTriggerInteraction.Ignore))
+			{
+				if (objectsToInspect.Contains(hit.collider))
+				{
+					aimDot.SetActive(false);
+					inspectIcon.SetActive(true);
+				}
+				else
+				{
+					inspectIcon.SetActive(false);
+					aimDot.SetActive(true);
+				}
+
+				if (!objectsToIgnore.Contains(hit.collider))
+				{
+					if (Input.GetKeyDown(addToListKey))
+					{
+						ToggleObjectInInspectionList(hit.collider);
+					}
+					else if (Input.GetKeyDown(inspectKey))
+					{
+						InitiateInspection(hit.collider);
+					}
+				}
+			}
+			else
+			{
+				if (inspectIcon.activeSelf || !aimDot.activeSelf)
+				{
+					inspectIcon.SetActive(false);
+					aimDot.SetActive(true);
+				}
+			}
+		}
+
+		private void HandleInspectionInProgress()
+		{
+			UpdateObjectPositionAndRotation();
+			UpdateInspectionDistance();
+		}
+
+		private void HandleInspectionExit()
+		{
+			if (Input.GetKeyDown(inspectKey))
+			{
+				FinalizeInspectionExit();
+			}
+		}
+
+		private void HandleInspectionExitCleanup()
+		{
+			ResetObjectToOriginalState();
+			ResetInspectionRotation();
+			ResetInspectionDistance();
+			ResetInspectedObject();
+		}
+	}
+}
+											
+
+								
+										</code></pre>
+									</div>
+								
+									<div class="tab-content" id="tabGrab">
+										<pre ><code style="max-height: 800px;" class="csharp">
+using UnityEngine;
+using FreyPhysicsController;
+
+namespace FreyPhysicsController
+{
+	public class GrabThrow : MonoBehaviour
+	{
+		[Header("Dependencies")]
+		[SerializeField] private Dependencies dependencies;
+
+		[Header("Input Properties")]
+		[SerializeField] private KeyCode grabThrowKey = KeyCode.G;
+
+		[Header("Grab/Throw Properties")]
+		[SerializeField] private float maxGrabDistance = 8f;
+		[SerializeField] private float grabSpeed = 15;
+		[SerializeField] private float throwForce = 800f;
+		[SerializeField] private GameObject grabIcon;
+
+		[Header("Audio Properties")]
+		[SerializeField] private AudioClip grabSound;
+		[SerializeField] private AudioClip throwSound;
+
+		private Camera cam;
+
+		private Rigidbody rb;
+		private Rigidbody grabbedObject;
+
+		private Transform grabPoint;
+		private Transform originalParent;
+
+		private Ray ray;
+		private RaycastHit hit;
+
+		private void Start()
+		{
+			Initialize();
+		}
+
+		private void Update()
+		{
+			GrabHoldThrow();
+		}
+
+		private void FixedUpdate()
+		{
+			Hold();
+		}
+
+		private void Initialize()
+		{
+			cam = dependencies.cam;
+			rb = dependencies.rb;
+			grabPoint = dependencies.grabPoint;
+			audioSource = dependencies.audioSourceTop;
+
+			//Create and make grab point A kinematic rigidbody
+			grabPoint.gameObject.AddComponent<Rigidbody>().useGravity = false;
+			grabPoint.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+
+		private void GrabHoldThrow()
+		{
+			ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (dependencies.isGrabbing && grabbedObject != null)
+			{
+				HandleThrow();
+			}
+			else if (!dependencies.isGrabbing && !dependencies.isInspecting)
+			{
+				HandleGrab();
+			}
+		}
+
+		private void HandleThrow()
+		{
+			if (Input.GetKeyDown(grabThrowKey))
+			{
+				grabbedObject.AddForce(dependencies.cam.transform.forward * throwForce, ForceMode.Impulse);
+				ReleaseGrab();
+				audioSource.PlayOneShot(throwSound);
+			}
+		}
+
+		private void HandleGrab()
+		{
+			if (Input.GetKeyDown(grabThrowKey) && Physics.Raycast(ray.origin, ray.direction, out hit, maxGrabDistance, ~(1 << LayerMask.NameToLayer("Ignore Raycast")), QueryTriggerInteraction.Ignore))
+			{
+				Rigidbody hitRigidbody = hit.collider.gameObject.GetComponent<Rigidbody>();
+				
+				if (hitRigidbody != null && !hitRigidbody.isKinematic)
+				{
+					grabPoint.position = hit.point;
+					grabbedObject = hitRigidbody;
+					dependencies.isGrabbing = true;
+					grabIcon.SetActive(true);
+					audioSource.PlayOneShot(grabSound);
+				}
+			}
+		}
+
+		private void ReleaseGrab()
+		{
+			grabbedObject = null;
+			dependencies.isGrabbing = false;
+			grabIcon.SetActive(false);
+		}
+
+		private void Hold()
+		{
+			if (dependencies.isGrabbing && grabbedObject != null)
+			{
+				grabbedObject.velocity = grabSpeed * (grabPoint.position - grabbedObject.transform.position);
+			}
+		}
+	}
+}
+											
+											
+										</code></pre>
+									</div>
 								</div>
 							</div>
-
-							<div class="pdf-container">
-								<object data="../docs/graduation.pdf" type="application/pdf" width="750px" height="750px">
-								    <embed src="../docs/graduation.pdf" type="application/pdf">
-								        <p>This browser does not support PDFs.</p>
-								    </embed>
-								</object>
-							</div>
-
-							<br><br>
-							<h3>Links</h3>
-							<ul class="icons">
-									<li id="test2"><a href="../docs/graduation.pdf" class="icon brands style2 fa-google" target="_blank"><span class="label">Thesis</span></a></li>
-									<li id="test2"><a href="https://github.com/LukeTobin/VirtualSleepPet" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
-							</ul>
+							
 						</div>
 						
 					</div>
@@ -463,27 +1532,6 @@ public class Alarm : MonoBehaviour
 				<!-- Footer -->
 					<footer id="footer">
 						<div class="inner">
-							<!--
-							<section>
-								<h2 id="test">Get in touch</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-										<div class="field half">
-											<input type="email" name="email" id="email" placeholder="Email" />
-										</div>
-										<div class="field">
-											<textarea name="message" id="message" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send" class="primary" /></li>
-									</ul>
-								</form>
-							</section>
-						-->
 							<section>
 								<h2 id="test">Contact</h2>
 								<ul class="icons">
