@@ -82,7 +82,10 @@
 						<div class="inner">
 							<h1>Sleep Pet</h1>
 							<h2>Concept</h2>
-							<p>A virtual pet mobile game that aims to alleviate habits in individuals struggling with ADHD. The application has been specifically designed to help users improve their sleep patterns and overcome bad habits by utilizing a variety of cutting-edge techniques. This project was a graduation project for a client and went through the typical game development cycle that included research, conceptualization, prototyping, and evaluation phases.</p>
+							<p><b>A virtual pet mobile game that aims to alleviate habits in individuals struggling with ADHD</b>. 
+								The application has been specifically designed to help users improve their sleep patterns and overcome bad habits 
+								by utilizing a variety of cutting-edge techniques. This project was a graduation project for a client and went through 
+								the typical game development cycle that included <u>research, conceptualization, prototyping, and evaluation phases.</u></p>
 
 							<!-- Images -->
 							<!--
@@ -124,11 +127,22 @@
 								</article>
 							</section>
 						-->
-
+							<br/>
 							<!-- Video -->
+							<!--
 							<div style="text-align: center;">
 								<iframe width="560" height="315" src="https://www.youtube.com/embed/zINLddXqzsc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 							</div>
+							-->
+
+							<div style="text-align: center;">
+								<video width="330" height="460" controls>
+									<source src="../videos/sleep.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+								  </video>
+							</div>
+
+							
 
         					<!-- Project Details -->
 							<h2 style="margin-top: 2em">Project Details</h2>
@@ -138,8 +152,6 @@
 							<p style="margin-top: -1em"><b>Project Length </b>6 Months</p>
 							<p style="margin-top: -1em"><b>Engine: </b>Unity</p>
 							<p style="margin-top: -1em"><b>Source Control: </b>Plastic SCM</p>
-
-							<p><b>Responsibilities: </b>Development, Design & Research</p>
 
 							<!-- Work Done -->
 							<h2 style="margin-top: 2em">Notable Work</h2>
@@ -207,93 +219,6 @@
 										</table>
 										<i>For a more detailed chart, please refer to page 6 of the accompanying <a href="../docs/graduation.pdf" target="_blank">thesis</a>.</i>
 									</div>
-								
-									
-									<!--
-									<div class="tab-container">
-										<div class="tab-button" onclick="showTab('snippet1')">Snippet 1</div>
-										<div class="tab-button" onclick="showTab('snippet2')">Snippet 2</div>
-									</div>
-
-									<div class="tab-content active" id="snippet1">
-										<pre ><code class="csharp">
-public class StaticUnit : UnitObject
-{
-	[Header("Static Settings")]
-	[SerializeField] bool playerBase;
-
-	public override void Start() {
-		SearchRadius = 6; 
-		bm = BattleManager.Instance;
-		SetupShaders();
-	}
-	
-	public override void Update() {
-		if(AttackSpeed > 0) DoAttacking();
-	}
-	
-	public override void KillUnit()
-	{
-		if(GetComponent<Entity>())
-			GetComponent<Entity>().Kill();
-		else
-			Debug.LogWarning("Trying to destroy entity, but failed: " + gameObject.name);
-
-		OnDeath.Invoke();
-	}
-
-	public override void RecieveDamage(float dmg)
-	{
-		Health -= dmg;
-		if(Health <= 0){
-			if(!playerBase) KillUnit();
-			if(playerBase) GameManager.Instance.EndRun();
-		}
-
-		statText.text = "-" + dmg;
-		statText.color = damageColor;
-		statText.DOFade(0, popupTextTime);
-
-		if(playerBase)
-			PlayerBase.Instance.ShowHealthText();
-	}
-
-	public override void DoAttacking()
-	{
-		if(attackTargetList.Count <= 0) return;
-
-		float distance = Vector2.Distance(transform.position, attackTargetList[0].gameObject.transform.position);
-
-		if(distance <= AttackRange && !sentAttack){
-			sentAttack = true;
-			Invoke("Attack", AttackSpeed);
-		}
-	}
-}
-										</code></pre>
-									</div>
-								
-									<div class="tab-content" id="snippet2">
-										<pre ><code class="csharp">
-public class StaticUnit : UnitObject
-{
-	[Header("Static Settings")]
-	[SerializeField] bool playerBase;
-
-	public override void Start() {
-		SearchRadius = 6; 
-		bm = BattleManager.Instance;
-		SetupShaders();
-	}
-	
-	public override void Update() {
-		if(AttackSpeed > 0) DoAttacking();
-	}
-}
-										</code></pre>
-									</div>
-
-								-->
 								</div>
 								
 							</div>
@@ -320,8 +245,8 @@ public class StaticUnit : UnitObject
 										<li>Inclusion of a tutorial for guiding new users through the application.</li>
 										<li>Utilization of SOLID principles in the project's architecture to ensure a smoother development experience.</li>
 									</ul>
-									<p>One of the more challenging aspects during app development was working with Android's Native Plugin. This plugin was poorly documented and lacked online support for certain features, such as alarm setting. This necessitated a deeper dive into the plugin and solving persistent issues. Below is an excerpt of the code written in Unity to handle alarm setting. Certain challenges arose from C# lacking access to ArrayLists, requiring the creation of custom solutions using Android's Native Plugin.</p>
-									<pre><code>using UnityEngine;
+									<p>One of the more challenging aspects during development was working with Android's Native Plugin. This plugin was poorly documented and lacked online support for certain features, such as alarm settings. This necessitated a deeper dive into the plugin and solving persistent issues. Below is an excerpt of the code written in Unity to handle alarm setting. Certain challenges arose from C# lacking access to ArrayLists, requiring the creation of custom solutions using Android's Native Plugin.</p>
+									<pre><code style="max-height: 700px;" class="csharp">using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
