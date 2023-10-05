@@ -87,6 +87,18 @@
 								by utilizing a variety of cutting-edge techniques. This project was a graduation project for a client and went through 
 								the typical game development cycle that included <u>research, conceptualization, prototyping, and evaluation phases.</u></p>
 
+							<p>Features include:
+								<ul>
+									<li>Non-intrusive Sleep Monitoring</li>
+									<li>Streaks System</li>
+									<li>Habit Builder</li>
+									<li>Sleep Feedback</li>
+									<li>Routine System</li>
+									<li>Sleep Metrics</li>
+									<li>Alarm System</li>
+								</ul>
+							</p>
+
 							<!-- Images -->
 							<!--
 							<section class="tiles">
@@ -136,7 +148,7 @@
 							-->
 
 							<div style="text-align: center;">
-								<video width="330" height="460" controls>
+								<video width="640" height="460" controls>
 									<source src="https://github.com/LukeTobin/luketobin.github.io/raw/master/videos/sleep.mp4" type="video/mp4">
 									Your browser does not support the video tag.
 								  </video>
@@ -248,11 +260,73 @@
 								</div>
 							</div>
 
+							<!-- Design Challenge -->
+							<h2 style="margin-top: 2em">Design Challenges</h2>
+							<div class="container">
+								<div class="content">
+									<h3>Sleep Monitoring</h3>
+
+									<p>Sleep monitoring is a prevalent design concern whenever designing an application that wants to improve the users sleep. The conventional approaches often demand intrusive actions from users, 
+										such as utilizing third-party technologies or recording their sleep throughout the night. 
+										This inconvenience leads to a significant drop-off in user retention. In my design approach, I aimed to minimize intrusiveness and enhance user-friendliness.</p>
+
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/SleepPet/sleep-track.jpg" alt="" /></span></div>
+										</div>
+									</div>
+
+									<p>My strategy involved exploring ways to monitor sleep duration using the device's internal clock, a less intrusive method. 
+										While the internal clock can be unreliable in accurately gauging sleep duration, I devised a solution. The application would 
+										estimate sleep length by tracking the time of app closure and subsequent reopening. However, this approach had limitations, 
+										considering users might not immediately fall asleep after closing the app, nor would they open it immediately upon waking. To address these challenges, 
+										I developed a system that leverages user-provided data. The application initially offers sleep time estimates based on app usage patterns but allows users 
+										to manually correct these estimations. Although granting users editing control might raise concerns about accuracy, the design prioritized user empowerment 
+										and trust. By refining sleep duration estimations through user input, the application continually enhances its accuracy, resulting in a non-intrusive sleep 
+										monitoring system that encourages users to focus on their sleep habits rather than minutiae.</p>
+
+										<div class="box alt">
+											<div class="row aln-center">
+												<div class="col-4"><span class="image fit"><img src="../images/SleepPet/sleep-track-2.jpg" alt="" /></span></div>
+											</div>
+										</div>
+
+									<p>The design went over incredibly well in testing with the target audience and client. The applications new found method of sleep monitoring boosted engagement as it became a less intrusive feature.</p>
+								</div>
+							</div>
+
+							<!-- Brand Integration -->
+							<div class="container">
+								<div class="content">
+									<h3>Brand Integration</h3>
+									<p>Seamlessly integrating a client's brand into a product can significantly enhance both the product and the client's brand. However, it can have adverse effects if not executed thoughtfully.
+										 Initially, I opted for a conservative approach, incorporating elements like similar color palettes, targeting the same audience, and incorporating client logos. 
+										 Despite these efforts, I felt the connection was lacking.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/SleepPet/website.JPG" alt="" /></span></div>
+										</div>
+									</div>
+									<p>The client is known for an online serialized comic series. Recognizing the potential, I proposed a non-intrusive integration of the client's 
+										work into the application. Collaborating with the client, we devised a system to reward users with chapters from the comic series, focusing on ADHD-related themes. 
+										These rewards were tied to the streaks system, incentivizing users to improve their sleep habits by unlocking new comic chapters. The characters from the game were seamlessly 
+										woven into the comic, establishing a genuine and organic connection, resulting in increased engagement with the client's other products and exciting rewards for users.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-4"><span class="image fit"><img src="../images/SleepPet/streak.png" alt="" /></span></div>
+											<div class="col-4"><span class="image fit"><img src="../images/SleepPet/comic.JPG" alt="" /></span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<!-- Alarm Settings -->
 							<div class="container">
 								<div class="content">
 									<h3>Android Native Plugin</h3>
-									<p>One of the more challenging aspects during development was working with Android's Native Plugin. This plugin was poorly documented and lacked online support for certain features, such as alarm settings. This necessitated a deeper dive into the plugin and solving persistent issues. Below is an excerpt of the code written in Unity to handle alarm setting. Certain challenges arose from C# lacking access to ArrayLists, requiring the creation of custom solutions using Android's Native Plugin.</p>
+									<p>One of the more challenging aspects during development was working with Android's Native Plugin. This plugin was poorly documented for Unity and lacked online support for certain features, such as alarm settings. 
+										This necessitated a deeper dive into the plugin and solving persistent issues. Below is an excerpt of the code written in Unity to handle alarms. 
+										Certain challenges arose from C# lacking access to ArrayLists, requiring the creation of custom solutions using Android's Native Plugin.</p>
 									<pre><code style="max-height: 700px;" class="csharp">using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -325,38 +399,13 @@ public class Alarm : MonoBehaviour
 }
 																					
 									</code></pre>
-								</div>
-							</div>
-
-							<!-- Brand Integration -->
-							<div class="container">
-								<div class="content">
-									<h3>Brand Integration</h3>
-									<p>Integrating your client's brand into your product can be achieved by understanding the primary focus of the brand. 
-										In my case, that's neurodivergent art therapy. Since the project already has a clear audience and goal aligned with the client's brand, 
-										exploring alternative avenues to enhance its correlation can be beneficial. Consistency and cohesion across brand products are important 
-										indicators of brand reliability. To achieve this, I employed the color palette and font styling from my client's website and serialized 
-										comics within the application, ensuring they all emanate from the same brand. This, in turn, will align the product's goal and focus with 
-										the client's other projects and establish a cohesive connection between them.</p>
 									<div class="box alt">
 										<div class="row aln-center">
-											<div class="col-8"><span class="image fit"><img src="../images/SleepPet/website.JPG" alt="" /></span></div>
-										</div>
-									</div>
-									<p>Upon explaining the client and the contextual problem, I realized that even though I had implemented techniques to incorporate the brand 
-										identity into the product—such as using similar color palettes or targeting the same audience—the product felt somewhat disconnected from 
-										the client. To address this, I saw a valuable opportunity to integrate the client's serialized comic series into the application. 
-										As a rewarding component within the streaks system, users are incentivized with new chapters of the client's comic series as they improve 
-										their sleep habits.</p>
-									<div class="box alt">
-										<div class="row aln-center">
-											<div class="col-4"><span class="image fit"><img src="../images/SleepPet/streak.png" alt="" /></span></div>
-											<div class="col-4"><span class="image fit"><img src="../images/SleepPet/comic.JPG" alt="" /></span></div>
+											<div class="col-6"><span class="image fit"><img src="../images/SleepPet/alarm.jpg" alt="" /></span></div>
 										</div>
 									</div>
 								</div>
 							</div>
-
 
 							<div class="pdf-container">
 								<object data="../docs/graduation.pdf" type="application/pdf" width="750px" height="750px">
