@@ -1,0 +1,641 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Luke Tobin - Code Samples</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/snazzy.min.css" integrity="sha512-DCCYH45xX7P4ggjembrwefCdll9HsL6YODZmhtqCNnZU4aysKTrSUyFoLq0sutXY+AF6le33xVPNo6hFGGOQ8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style>
+			/* Custom styles for the tab container */
+			.tab-container {
+				display: flex;
+			}
+	
+			.tab-button {
+				padding: 10px 25px;
+				background-color: #333;
+				cursor: pointer;
+				color: #f0f0f0;
+			}
+
+			.tab-button:hover {
+				background-color: #ccc; /* Change this color for hover effect */
+			}
+	
+			.tab-content {
+				width: 100%;
+				display: none;
+			}
+	
+			.tab-content.active {
+				display: block;
+			}
+		</style>
+
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+	
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">Technical Design Portfolio</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../docs/Resume.pdf" target="_blank">Resume</a></li>
+							<li><a href="#con">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Code Samples</h1>
+							<p>Various <b>code snippets</b> from projects I've worked on, including <u>algorithms, design patterns and general systems.</u></p>
+
+							<!-- Work Done -->
+							<h2 style="margin-top: 2em">Examples</h2>
+							<!-- A* -->
+							<div class="container">
+								<div class="content">
+									<h3>A* Pathfinding w/DOTS</h3>
+									
+									<p>A* Pathfinding implementation using Unity DOTS. By taking advantage of the Jobs system it is possible to have the algorithm run at a 700 times faster speed than the standard GameObject approach.</p>
+									
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/Code/pathfinding.gif" alt="" /></span></div>
+										</div>
+									</div>
+
+									<div class="tab-container">
+										<div class="tab-button" onclick="showTab('tabAStar')">A* Job</div>
+										<div class="tab-button" onclick="showTab('tabASupport')">A* Support</div>
+									</div>
+
+									<!-- CODE BLOCKS -->
+									<div class="tab-content active" id="tabAStar">
+										<pre><code style="max-height: 800px;" class="csharp">[BurstCompile]
+struct AStarPathfinding : IJob
+{
+	public GraphGrid Grid;
+	public int2 Start;
+	public int2 End;
+	public NativeList&lt;int2&gt; Path;
+
+	public void Execute()
+	{
+		NativeList&lt;int&gt; openList = new NativeList&lt;int&gt;(Allocator.Temp);
+		NativeList&lt;int&gt; closedList = new NativeList&lt;int&gt;(Allocator.Temp);
+
+		int endNodeIndex = GetIndex(End.x, End.y);
+
+		Node startNode = Grid.Nodes[GetIndex(Start.x, Start.y)];
+		startNode.g = 0;
+		CalculateNodeF(startNode);
+		Grid.Nodes[startNode.index] = startNode;
+		openList.Add(startNode.index);
+
+		while(openList.Length &gt; 0)
+		{
+			Node currentNode = GetLowestCostNode(openList);
+
+			if (currentNode.index == endNodeIndex)
+			{
+				Path = CalculatePath(currentNode);
+				break;
+			}
+
+			for (int i = 0; i &lt; openList.Length; i++)
+			{
+				if (openList[i] == currentNode.index)
+				{
+					openList.RemoveAtSwapBack(i);
+					break;
+				}
+			}
+
+			closedList.Add(currentNode.index);
+
+			NativeArray&lt;int2&gt; neighbors = GetNeighbors(currentNode.coordinates);
+			for(int i = 0;i &lt; neighbors.Length; i++)
+			{
+				int neighbourIndex = GetIndex(neighbors[i].x, neighbors[i].y);
+				Node neighbourNode = Grid.Nodes[neighbourIndex];
+
+				if (!Grid.Nodes[neighbourIndex].walkable || closedList.Contains(neighbourIndex))
+				{
+					continue;
+				}
+
+				int tentativeGCost = currentNode.g + AStar.CalculateDistanceCost(currentNode.coordinates, neighbourNode.coordinates);
+				if (tentativeGCost &lt; neighbourNode.g)
+				{
+					neighbourNode.parent = currentNode.index;
+					neighbourNode.g = tentativeGCost;
+					CalculateNodeF(neighbourNode);
+					Grid.Nodes[neighbourIndex] = neighbourNode;
+
+					if (!openList.Contains(neighbourIndex))
+					{
+						openList.Add(neighbourIndex);
+					}
+				}
+			}
+
+			neighbors.Dispose();
+		}
+
+		ExecutePathfinding();
+
+		openList.Dispose();
+		closedList.Dispose();
+	}
+
+	private int GetIndex(int x, int y)
+	{
+		return x + y * Grid.GridSize.x;
+	}
+
+	private void CalculateNodeF(Node node)
+	{
+		node.f = node.g + node.h;
+	}
+
+	private Node GetLowestCostNode(NativeList&lt;int&gt; openList)
+	{
+		Node lowestCostNode = Grid.Nodes[openList[0]];
+
+		for (int i = 0; i &lt; openList.Length; i++)
+		{
+			Node sampleNode = Grid.Nodes[openList[i]];
+			if (sampleNode.f &lt; lowestCostNode.f)
+			{
+				lowestCostNode = sampleNode;
+			}
+		}
+
+		return lowestCostNode;
+	}
+
+	private NativeArray&lt;int2&gt; GetNeighbors(int2 position)
+	{
+		NativeArray&lt;int2&gt; neighbors = new NativeArray&lt;int2&gt;(8, Allocator.Temp);
+		int index = 0;
+
+		for (int i = -1; i &lt;= 1; i++)
+		{
+			for (int j = -1; j &lt;= 1; j++)
+			{
+				if (i == 0 && j == 0)
+					continue;
+
+				int2 neighborPos = position + new int2(i, j);
+				if (IsValidGridPosition(neighborPos))
+				{
+					neighbors[index] = neighborPos;
+					index++;
+				}
+			}
+		}
+
+		return neighbors;
+	}
+
+	private bool IsValidGridPosition(int2 position)
+	{
+		return position.x &gt;= 0 && position.x &lt; Grid.GridSize.x && position.y &gt;= 0 && position.y &lt; Grid.GridSize.y;
+	}
+
+
+	private NativeList&lt;int2&gt; CalculatePath(Node endNode)
+	{
+		NativeList&lt;int2&gt; path = new NativeList&lt;int2&gt;(Allocator.Temp);
+		path.Add(endNode.coordinates);
+
+		Node currentNode = endNode;
+		while(currentNode.parent != -1)
+		{
+			Node cameFromNode = Grid.Nodes[currentNode.parent];
+			path.Add(cameFromNode.coordinates);
+			currentNode = cameFromNode;
+		}
+
+		return path;
+	}
+
+	private void ExecutePathfinding()
+	{
+		// CODE TO BE EXECUTED AFTER FINDING A PATH
+		// SAMPLE:
+		foreach (int2 pathPosition in Path)
+		{
+			Debug.Log(pathPosition);
+		}
+	}
+}				
+										</code></pre>
+									</div>
+								
+									<div class="tab-content" id="tabASupport">
+										<pre ><code style="max-height: 800px;" class="csharp">using System.Linq;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using Unity.Mathematics;
+using UnityEngine;
+
+public struct Node
+{
+	public int2 coordinates;
+	public int g, h, f; // cost, heuristic, lowest cost
+	public int parent;
+	public int index;
+	public bool walkable;
+}
+
+public struct GraphGrid
+{
+	public int2 GridSize;
+	public int CellSize;
+	public NativeArray&lt;Node&gt; Nodes;
+}
+
+public class AStar : MonoBehaviour
+{
+	public int2 gridSize = new int2(10, 10);
+	public int cellSize = 1;
+	public int2 startPosition = new int2(0, 0);
+	public int2 endPosition = new int2(9, 9);
+
+	private GraphGrid grid;
+	private NativeList&lt;int2&gt; resultPath = new NativeList&lt;int2&gt;();
+
+	private const int STRAIGHT_COST = 10;
+	private const int DIAGONAL_COST = 14;
+
+	private void Start()
+	{
+		InitializeGrid();
+		CalculatePath();
+	}
+
+	private void InitializeGrid()
+	{
+		grid = new GraphGrid
+		{
+			GridSize = gridSize,
+			CellSize = cellSize,
+			Nodes = new NativeArray&lt;Node&gt;(gridSize.x * gridSize.y, Allocator.TempJob)
+		};
+
+		for (int x = 0; x &lt; gridSize.x; x++)
+		{
+			for (int y = 0; y &lt; gridSize.y; y++)
+			{
+				int index = y  * gridSize.x + x;
+				bool isWalkable = true;
+				grid.Nodes[index] = new Node
+				{
+					coordinates = new int2(x, y),
+					walkable = isWalkable,
+					index = x + y * gridSize.x,
+					g = int.MaxValue,
+					h = CalculateDistanceCost(new int2(x, y), endPosition),
+					parent = -1
+				};
+			}
+		}
+	}
+
+	private void CalculatePath()
+	{
+		resultPath = new NativeList&lt;int2&gt;(Allocator.TempJob);
+
+		AStarPathfinding pathfinding = new AStarPathfinding
+		{
+			Grid = grid,
+			Start = startPosition,
+			End = endPosition,
+			Path = resultPath
+		};
+
+		JobHandle jobHandle = pathfinding.Schedule();
+		jobHandle.Complete();
+
+		// Dealloc
+		resultPath.Dispose();
+		grid.Nodes.Dispose();
+	}
+
+	public static int CalculateDistanceCost(int2 a, int2 b)
+	{
+		int x =         math.abs(a.x - b.x);
+		int y =         math.abs(a.y - b.y);
+		int remaining = math.abs(x - y);
+
+		return DIAGONAL_COST * math.min(x,y) + STRAIGHT_COST * remaining;
+	}
+}															
+										</code></pre>
+									</div>		
+									<!-- END OF CODE BLOCKS -->	
+								
+								</div>
+							</div>
+
+
+							<!-- State Machine -->
+							<div class="container">
+								<div class="content">
+									<h3>Abstract State Machine</h3>
+									
+									<p>An abstract state machine designed to abide by DRY (<b>D</b>on't <b>R</b>epeart <b>Y</b>ourself). The state machine works by having an 
+										abstract implementation of the StateManager class handle all associated abstract implementations of the BaseState class, which are required to be keyed by an Enum. 
+										The abstract state machine can be easily extended with functionality based on this implementation.</p>
+									
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-6"><span class="image fit"><img src="../images/Code/state.jpg" alt="" /></span></div>
+										</div>
+									</div>
+
+									<div class="tab-container">
+										<div class="tab-button" onclick="showTab('tabBaseState')">BaseState</div>
+										<div class="tab-button" onclick="showTab('tabManager')">StateManager</div>
+										<div class="tab-button" onclick="showTab('tabUse')">Example Use</div>
+									</div>
+
+									<!-- CODE BLOCKS -->
+									<div class="tab-content active" id="tabBaseState">
+										<pre><code style="max-height: 800px;" class="csharp">using System;
+
+public abstract class BaseState&lt;State&gt; where State : Enum
+{
+	public BaseState(State StateKey)
+	{
+		this.StateKey = StateKey;
+	}
+
+	// A key is used as a unique identifier, enabling easy association within the manager's dictionary.
+	public State StateKey { get; private set; }
+
+	public abstract State GetNextState();
+
+	public abstract void Enter();
+	public abstract void Exit();
+}						
+										</code></pre>
+									</div>
+								
+									<div class="tab-content" id="tabManager">
+										<pre ><code style="max-height: 800px;" class="csharp">using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class StateManager&lt;State&gt; : MonoBehaviour where State : Enum
+{
+	protected Dictionary&lt;State&gt;, BaseState&lt;&lt;State&gt;&gt; States = new Dictionary&lt;State, BaseState&lt;State&gt;&gt;();
+	protected BaseState&lt;State&gt; CurrentState = null;
+
+	public void NewState(State key)
+	{
+		CurrentState?.Exit();
+		CurrentState = States[key];
+		CurrentState.Enter();
+	}
+}												
+										</code></pre>
+									</div>
+									
+									<div class="tab-content" id="tabUse">
+										<pre ><code style="max-height: 800px;" class="csharp">public class ExampleStateMachine : StateManager&lt;ExampleStateMachine.StateExamples&gt;
+{
+public enum StateExamples
+{
+	Example,
+	Print
+}
+
+void Start()
+{
+	States.Add(StateExamples.Example, new ExampleState());
+	States.Add(StateExamples.Print, new PrintState());
+
+	NewState(StateExamples.Example);
+}
+}
+
+
+public class ExampleState : BaseState&lt;ExampleStateMachine.StateExamples&gt;
+{
+public ExampleState() : base(ExampleStateMachine.StateExamples.Example) { }
+
+public override void Enter()
+{
+	Debug.Log("Example State Entered");
+}
+
+public override void Exit()
+{
+	Debug.Log("Example State Exited");
+}
+
+public override ExampleStateMachine.StateExamples GetNextState()
+{
+	return ExampleStateMachine.StateExamples.Print;
+}
+}
+
+
+public class PrintState : BaseState&lt;ExampleStateMachine.StateExamples&gt;
+{
+public PrintState() : base(ExampleStateMachine.StateExamples.Print) { }
+
+public override void Enter()
+{
+	Debug.Log($"Print State Entered: {Random.Range(1, 100)}");
+}
+
+public override void Exit()
+{
+	Debug.Log("Print State Exited");
+}
+
+public override ExampleStateMachine.StateExamples GetNextState()
+{
+	return ExampleStateMachine.StateExamples.Example;
+}
+}		
+										</code></pre>
+									</div>
+									<!-- END OF CODE BLOCKS -->	
+								
+								</div>
+							</div>
+
+
+							<!-- Maze -->
+							<!--
+							<div class="container">
+								<div class="content">
+									<h3>Maze Generation</h3>
+									
+									<p>Description</p>
+									
+									<img src="../images/pic04.jpg" alt="Hypercasual GIF" style="display: block; margin: 0 auto; border-radius: 20px;width: auto; height: auto; max-width: 60%;">
+									
+									<pre><code style="max-height: 700px;margin-top: 3%;" class="csharp">using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;				
+</code></pre>
+								
+								</div>
+							</div>
+						-->
+
+							<!-- Observer Pattern -->
+							<!--
+							<div class="container">
+								<div class="content">
+									<h3>Observer Pattern</h3>
+									
+									<p>Description</p>
+									
+									<img src="../images/pic04.jpg" alt="Hypercasual GIF" style="display: block; margin: 0 auto; border-radius: 20px;width: auto; height: auto; max-width: 60%;">
+									
+									<pre><code style="max-height: 700px;margin-top: 3%;" class="csharp">using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;				
+</code></pre>
+								
+								</div>
+							</div>
+						-->
+
+							<!-- Ability System -->
+							<!--
+							<div class="container">
+								<div class="content">
+									<h3>Ability System</h3>
+									
+									<p>Description</p>
+									
+									<img src="../images/pic04.jpg" alt="Hypercasual GIF" style="display: block; margin: 0 auto; border-radius: 20px;width: auto; height: auto; max-width: 60%;">
+									
+									<pre><code style="max-height: 700px;margin-top: 3%;" class="csharp">using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;				
+</code></pre>
+								
+								</div>
+							</div>
+				-->
+						</div>
+						
+					</div>
+				
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<!--
+							<section>
+								<h2 id="test">Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+						-->
+							<section>
+								<h2 id="test">Contact</h2>
+								<ul class="icons">
+									<li id="test"><a href="https://github.com/LukeTobin" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li id="test"><a href="https://www.linkedin.com/in/lukejltobin/" class="icon brands style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li id="test"><a href="https://twitter.com/freyble" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li id="test"><a href="mailto: lukejltobin@gmail.com" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+
+									<li id="test"><a href="" class="icon brands style3 fa-discord"><span class="label">Frey#3163</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Luke Tobin. All rights reserved</li></li>
+							</ul>
+						</div>
+					</footer>
+			</div>
+
+		<!-- Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2"></script>
+		<script>
+			hljs.initHighlightingOnLoad();
+
+			document.querySelectorAll('pre code:not([class])').forEach(function($) {
+				$.className = 'no-highlight';
+			});
+			hljs.initHighlighting();
+
+			function showTab(tabId) {
+				// Hide all tab contents
+				var tabContents = document.querySelectorAll('.tab-content');
+				tabContents.forEach(function(content) {
+					content.classList.remove('active');
+				});
+
+				// Show the selected tab content
+				var selectedTab = document.getElementById(tabId);
+				selectedTab.classList.add('active');
+			}
+		</script>
+
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/browser.min.js"></script>
+		<script src="../assets/js/breakpoints.min.js"></script>
+		<script src="../assets/js/util.js"></script>
+		<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
