@@ -425,7 +425,7 @@ using UnityEngine;
 
 public abstract class StateManager&lt;State&gt; : MonoBehaviour where State : Enum
 {
-	protected Dictionary&lt;State&gt;, BaseState&lt;&lt;State&gt;&gt; States = new Dictionary&lt;State, BaseState&lt;State&gt;&gt;();
+	protected Dictionary&lt;State, BaseState&lt;&lt;State&gt;&gt; States = new Dictionary&lt;State, BaseState&lt;State&gt;&gt;();
 	protected BaseState&lt;State&gt; CurrentState = null;
 
 	public void NewState(State key)
