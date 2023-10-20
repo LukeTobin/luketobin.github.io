@@ -375,6 +375,55 @@ public class AStar : MonoBehaviour
 							</div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 							<!-- State Machine -->
 							<div class="container">
 								<div class="content">
@@ -504,6 +553,1224 @@ public override ExampleStateMachine.StateExamples GetNextState()
 								</div>
 							</div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<!-- OpenGL -->
+							<div class="container">
+								<div class="content">
+									<h3>OpenGL C++</h3>
+									
+									<p>A small custom engine project that can create 3D scenes by utilizing OpenGL & GLUT. The implementation handles model processing and importing, lighting data, 
+										particle effects and vertex/fragment shaders.</p>
+									
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="../images/Code/openGL.JPG" alt="" /></span></div>
+										</div>
+									</div>
+
+									<div class="tab-container">
+										<div class="tab-button" onclick="showTab('tabMain')">Main</div>
+										<div class="tab-button" onclick="showTab('tabPrim')">Primitives</div>
+										<div class="tab-button" onclick="showTab('tabModel')">Model</div>
+										<div class="tab-button" onclick="showTab('tabShader')">Shaders</div>
+										<div class="tab-button" onclick="showTab('tabGLSL')">GLSL</div>
+									</div>
+
+									<!-- CODE BLOCKS -->
+									<div class="tab-content active" id="tabMain">
+										<pre><code style="max-height: 800px;" class="csharp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cstring&gt;
+
+#include &lt;GL/glew.h&gt;
+#include &lt;GL/freeglut.h&gt;
+
+#include &lt;glm/glm.hpp&gt;
+#include &lt;glm/gtc/matrix_transform.hpp&gt;
+#include &lt;glm/gtc/type_ptr.hpp&gt;
+
+#include "glsl.h"
+
+#include "objloader.h"
+#include "texture.h"
+
+#include "Model.h"
+#include "Primitives.h"
+
+using namespace std;
+
+//--------------------------------------------------------------------------------
+// Consts
+//--------------------------------------------------------------------------------
+
+const int WIDTH = 1000, HEIGHT = 800; // width and height of screen
+
+const float FOV = 45; // camera field of view
+const float FORWARD_MOVEMENT = 0.1f; // foward movement speed for camera movement
+
+// shader defined paths
+const char* fragshader_name = "fragmentshader.fsh";
+const char* vertexshader_name = "vertexshader.vert";
+const char* transparent_fs_name = "fragmentshader_transparent.fsh";
+
+unsigned const int DELTA_TIME = 10;
+
+//--------------------------------------------------------------------------------
+// Variables
+//--------------------------------------------------------------------------------
+
+// ID's
+GLuint default_id; // default shader
+GLuint transparent_id; // transparent shader
+
+// Matrices
+glm::mat4 view, projection;   // view and projection matricies
+
+// Camera / LookAt
+glm::vec3 cameraEye; // camera position
+glm::vec3 cameraCenter; // where the camera looks
+glm::vec3 cameraUp; // cameras up vector
+
+// Models
+// house model components
+Model houseBase;
+Model houseRoof;
+Model houseWindows;
+Model houseDoor;
+
+// small garden windmills
+Model pole;
+Model windmillWick;
+
+// World Lists
+vector&lt;Model&gt; models; // vector for models
+vector&lt;Primitives&gt; primitives; // vector for primitives
+
+// Lighting
+LightingData defaultLight;
+
+// drone mode vars
+bool droneMode = false;
+glm::vec3 droneCameraEye = glm::vec3(0, 10, 7); // default drone camera position for drone mode
+glm::vec3 droneCameraCenter = glm::vec3(0, -1, -1); // default camera center for drone mode
+glm::vec3 droneCameraUp = glm::vec3(0, 1, 0); // default camera up vector for drone mode
+
+glm::vec3 savedCameraEye; // saved camera position for when swapping between modes
+glm::vec3 savedCameraCenter; // saved camera center for when swapping between modes
+glm::vec3 savedCameraUp; // saved camera up vector for when swapping between modes
+
+//--------------------------------------------------------------------------------
+// Keyboard handling
+//--------------------------------------------------------------------------------
+
+void keyboardHandler(unsigned char key, int a, int b)
+{
+	// exit
+	if (key == 27)
+		glutExit();
+
+	// WASD
+	// w - move forward
+	if (key == 119) {
+		cameraEye.z -= FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// s - move backwards
+	if (key == 115) {
+		cameraEye.z += FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// a - move left
+	if (key == 97) {
+		cameraEye.x -= FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// d - move right
+	if (key == 100) {
+		cameraEye.x += FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// IJKL
+	// i - rotate camera up
+	if (key == 105) {
+		cameraCenter.y += FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+		
+	// k - rotate camera down
+	if (key == 107) {
+		cameraCenter.y -= FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// j - rotate camera left
+	if (key == 106) {
+		cameraCenter.x -= FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// l - rotate camera right
+	if (key == 108) {
+		cameraCenter.x += FORWARD_MOVEMENT;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+
+	// DRONE MODE KEYS
+	// v for drone mode
+	if (key == 118) {
+		if (droneMode) {
+			droneMode = false;
+			
+			// update camera data to be equal to our saved data
+			cameraEye = savedCameraEye;
+			cameraCenter = savedCameraCenter;
+			cameraUp = savedCameraUp;
+		}
+		else {
+			droneMode = true;
+			// save our camera data
+			savedCameraEye = cameraEye;
+			savedCameraCenter = cameraCenter;
+			savedCameraUp = cameraUp;
+
+			// update our current camera data to be equal to our drone presets
+			cameraEye = droneCameraEye;
+			cameraCenter = droneCameraCenter;
+			cameraUp = droneCameraUp;
+		}
+
+		view = glm::lookAt(cameraEye, cameraCenter, cameraUp);
+	}
+
+	// Q - Move drone up
+	if (key == 113 && droneMode) {
+		cameraEye.y += FORWARD_MOVEMENT;
+		if (cameraEye.y &lt; 0) cameraEye.y = 0;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+	}
+
+	// E - Move drone down
+	if (key == 101 && droneMode) {
+		cameraEye.y -= FORWARD_MOVEMENT;
+		if (cameraEye.y &lt; 0) cameraEye.y = 0;
+		view = glm::lookAt(cameraEye, cameraEye + cameraCenter, cameraUp);
+
+	}
+
+}
+
+//--------------------------------------------------------------------------------
+// Rendering & Animations
+//--------------------------------------------------------------------------------
+
+void Render()
+{
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Attach to default_id
+	glUseProgram(default_id);
+
+	// Render each model
+	for (int i = 0; i &lt; models.size(); i++) {
+
+		// Check for and play animations
+		// Play windmill animation for each windmill in the scene
+		// Rotates them around in a circle
+		if (models[i].modelName == "Windmill Wick") {
+			models[i].Rotate(0, 0, 2, 0.01);
+			models[i].UpdateModelVertices(view);
+		}
+
+		// Play smoke animation for each smoke effect in the scene
+		// Translate a smoke effect upwards then repeat it by resetting its transformation
+		if (models[i].modelName == "Smoke") {
+			models[i].Translate(0, 0.1, 0);
+			models[i].UpdateModelVertices(view);
+
+			if (models[i].position.y &gt;= 5.5) {
+				models[i].Translate(0, -5.5, 0);
+				models[i].UpdateModelVertices(view);
+			}
+		}
+
+		// update buffers
+		models[i].Render(view, projection);
+		// if the model has a texture, apply it
+		if (models[i].texture_id)
+			glBindTexture(GL_TEXTURE_2D, models[i].texture_id);
+		// send mvp for each mv
+		glUniformMatrix4fv(models[i].uniform_mvp, 1, GL_FALSE, glm::value_ptr(models[i].mv));
+		// send vao
+		glBindVertexArray(models[i].vao);
+		// draw
+		glDrawArrays(GL_TRIANGLES, 0, models[i].vertices.size());  
+	}
+
+	// Render each primitive
+	for (int i = 0; i &lt; primitives.size(); i++)
+	{
+		primitives[i].Render();
+		primitives[i].UpdateVertices(view);
+		glUniformMatrix4fv(primitives[i].uniform_mvp, 1, GL_FALSE, glm::value_ptr(primitives[i].mv));
+		glBindVertexArray(primitives[i].vao);
+		glDrawElements(GL_TRIANGLES, sizeof(primitives[i].elements) / sizeof(GLushort), GL_UNSIGNED_SHORT, 0);
+	}
+
+	// reset vao
+	glBindVertexArray(0);
+	glutSwapBuffers();
+}
+
+//------------------------------------------------------------
+// void Render(int n)
+// Render method that is called by the timer function
+//------------------------------------------------------------
+
+void Render(int n)
+{
+	Render();
+	glutTimerFunc(DELTA_TIME, Render, 0);
+}
+
+
+//------------------------------------------------------------
+// void InitGlutGlew(int argc, char **argv)
+// Initializes Glut and Glew
+//------------------------------------------------------------
+
+void InitGlutGlew(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	glutInitWindowSize(WIDTH, HEIGHT);
+	glutCreateWindow("Neighbourhood Scene - Luke Tobin");
+	glutDisplayFunc(Render);
+	glutKeyboardFunc(keyboardHandler);
+	glutTimerFunc(DELTA_TIME, Render, 0);
+
+	glewInit();
+}
+
+
+//------------------------------------------------------------
+// void InitShaders()
+// Initializes the fragmentshader and vertexshader
+//------------------------------------------------------------
+
+void InitShaders()
+{
+	char* vertexshader = glsl::readFile(vertexshader_name);
+	GLuint vsh_id = glsl::makeVertexShader(vertexshader);
+
+	char* fragshader = glsl::readFile(fragshader_name);
+	GLuint fsh_id = glsl::makeFragmentShader(fragshader);
+
+	// custom transparency shader
+	char* transparentshader = glsl::readFile(transparent_fs_name);
+	GLuint trn_id = glsl::makeFragmentShader(transparentshader);
+
+	default_id = glsl::makeShaderProgram(vsh_id, fsh_id);
+	transparent_id = glsl::makeShaderProgram(vsh_id, trn_id);
+}
+
+
+//------------------------------------------------------------
+// void InitMatrices()
+//------------------------------------------------------------
+
+/// &lt;summary&gt;
+/// Setup our camera view and projection
+/// &lt;/summary&gt;
+void InitMatrices()
+{   
+	cameraEye = glm::vec3(0, 1.75f, 7.0);
+	cameraCenter = glm::vec3(0.0, 0, -1.0);
+	cameraUp = glm::vec3(0.0, 1.0, 0.0);
+	view = glm::lookAt(cameraEye, cameraCenter, cameraUp);  // up
+	projection = glm::perspective(
+		glm::radians(FOV),
+		1.0f * WIDTH / HEIGHT, 0.1f,
+		20.0f);
+}
+
+/// &lt;summary&gt;
+/// Setup our models
+/// &lt;/summary&gt;
+void InitLoadObjects() {
+	// HOUSE MODEL
+	houseBase = Model("House Base", "Models/house_base_a.obj","Textures/brick_wall.bmp", default_id, defaultLight);
+	houseBase.UpdateModelVertices(view);
+	models.push_back(houseBase);
+
+	houseRoof = Model("House Roof", "Models/house_roof_a.obj","Textures/roof.bmp", default_id, defaultLight);
+	houseRoof.Translate(0, 0.75, 0);
+	houseRoof.UpdateModelVertices(view);
+	models.push_back(houseRoof);
+
+	houseWindows = Model("House Windows", "Models/house_windows_a.obj","Textures/glass.bmp", default_id, defaultLight);
+	houseWindows.UpdateModelVertices(view);
+	models.push_back(houseWindows);
+
+	houseDoor = Model("House Door", "Models/door_a.obj", "Textures/door.bmp", default_id, defaultLight);
+	houseDoor.Translate(-0.325, -1, 1.5);
+	houseDoor.UpdateModelVertices(view);
+	models.push_back(houseDoor);
+
+	Model chimney = Model("Chimney", "Models/chimney.obj","Textures/brick_wall.bmp", default_id, defaultLight);
+	chimney.Translate(-0.75, 1.25, 0);
+	chimney.Scale(0.9, 0.9, 0.9);
+	chimney.UpdateModelVertices(view);
+	models.push_back(chimney);
+
+#pragma region Grass
+
+	// GRASS.
+	Model grass = Model("Grass", "Models/grass.obj", "Textures/grass.bmp", default_id, defaultLight);
+	grass.Translate(2.3, -1, 0);
+	grass.Scale(0.4, 0.4, 0.4);
+	grass.UpdateModelVertices(view);
+	models.push_back(grass);
+
+	Model grass2 = grass;
+	grass2.Translate(0.4, 0, -0.6);
+	grass2.UpdateModelVertices(view);
+	models.push_back(grass2);
+
+	Model grass3 = grass;
+	grass3.Translate(0.6, 0, -0.3);
+	grass3.UpdateModelVertices(view);
+	models.push_back(grass3);
+
+	Model grass4 = grass;
+	grass4.Translate(-2.6, 0, 1);
+	grass4.UpdateModelVertices(view);
+	models.push_back(grass4);
+
+	Model grass5 = grass;
+	grass5.Translate(-10.6, 0, 2.2);
+	grass5.UpdateModelVertices(view);
+	models.push_back(grass5);
+
+	Model grass6 = grass;
+	grass6.Translate(-11.6, 0, 3.5);
+	grass6.UpdateModelVertices(view);
+	models.push_back(grass6);
+
+	Model grass7 = grass;
+	grass7.Translate(-11, 0, 3);
+	grass7.UpdateModelVertices(view);
+	models.push_back(grass7);
+
+#pragma endregion Grass
+
+#pragma region SmokeEffects
+	// SMOKE EFFECTS
+	// No textures being applied
+	Model smokeEffect = Model("Smoke", "Models/basic_cube.obj",transparent_id, defaultLight);
+	smokeEffect.Translate(-0.75, 1.3, -0.25);
+	smokeEffect.Scale(0.2, 0.2, 0.05);
+	smokeEffect.UpdateModelVertices(view);
+	models.push_back(smokeEffect);
+
+	Model smokeEffect2 = smokeEffect;
+	smokeEffect2.Translate(-0.2, 0.4, 0);
+	smokeEffect2.UpdateModelVertices(view);
+	models.push_back(smokeEffect2);
+
+	Model smokeEffect3 = smokeEffect;
+	smokeEffect3.Translate(0.25, -0.65, 0);
+	smokeEffect3.UpdateModelVertices(view);
+	models.push_back(smokeEffect3);
+
+	Model smokeEffect4 = smokeEffect;
+	smokeEffect4.Translate(0.1, -1.2, 0);
+	smokeEffect4.UpdateModelVertices(view);
+	models.push_back(smokeEffect4);
+
+	Model smokeEffect5 = smokeEffect;
+	smokeEffect5.Translate(-0.15, -0.8, 0);
+	smokeEffect5.UpdateModelVertices(view);
+	models.push_back(smokeEffect5);
+
+	Model smokeEffect6 = smokeEffect;
+	smokeEffect6.Translate(0.1, -2, 0);
+	smokeEffect6.UpdateModelVertices(view);
+	models.push_back(smokeEffect6);
+
+	Model smokeEffect7 = smokeEffect;
+	smokeEffect7.Translate(-0.22, -2.5, 0);
+	smokeEffect7.UpdateModelVertices(view);
+	models.push_back(smokeEffect7);
+
+	Model smokeEffect8 = smokeEffect;
+	smokeEffect8.Translate(0.1, -2.8, 0);
+	smokeEffect8.UpdateModelVertices(view);
+	models.push_back(smokeEffect8);
+
+	Model smokeEffect9 = smokeEffect;
+	smokeEffect9.Translate(-0.2, -3, 0);
+	smokeEffect9.UpdateModelVertices(view);
+	models.push_back(smokeEffect9);
+
+#pragma endregion SmokeEffects
+
+	// DECORATIVE WINDMILL(S)
+	pole = Model("Pole", "Models/pole.obj","Textures/wood_fence.bmp", default_id, defaultLight);
+	pole.Translate(-2, -1, 0);
+	pole.Scale(0.5, 0.5, 0.5);
+	pole.UpdateModelVertices(view);
+	models.push_back(pole);
+
+	Model pole2 = pole;
+	pole2.Translate(8, 0, 0);
+	pole2.UpdateModelVertices(view);
+	models.push_back(pole2);
+
+	windmillWick = Model("Windmill Wick", "Models/windp.obj", "Textures/wood_fence.bmp", default_id, defaultLight);
+	windmillWick.Translate(-2, -0.5, 0.045);
+	windmillWick.Scale(0.5, 0.5, 0.5);
+	windmillWick.UpdateModelVertices(view);
+	models.push_back(windmillWick);
+
+	Model windmillWick2 = windmillWick;
+	windmillWick2.Translate(8, 0, 0);
+	windmillWick2.UpdateModelVertices(view);
+	models.push_back(windmillWick2);
+
+
+	// FLOOR
+	Model floor = Model("Floor", "Models/basic_cube.obj", "Textures/stone_path.bmp", default_id, defaultLight);
+	floor.Scale(15, 0.5, 15);
+	floor.Translate(0, -3, 0);
+	floor.UpdateModelVertices(view);
+	models.push_back(floor);
+
+
+	// Primitive model
+	Quad table = Quad(default_id);
+	table.Translate(-2.5, -0.5, 3);
+	table.Scale(0.5, 0.5, 0.5);
+	table.UpdateVertices(view);
+	primitives.push_back(table);
+
+	Square tableLeg1 = Square(default_id);
+	tableLeg1.Translate(-2.9, -0.8, 3.5);
+	tableLeg1.Scale(0.1, 0.3, 0.1);
+	tableLeg1.UpdateVertices(view);
+	primitives.push_back(tableLeg1);
+
+	Square tableLeg2 = tableLeg1;
+	tableLeg2.Translate(8, 0, 0);
+	tableLeg2.UpdateVertices(view);
+	primitives.push_back(tableLeg2);
+
+	Square tableLeg3 = tableLeg1;
+	tableLeg3.Translate(0, 0, -10);
+	tableLeg3.UpdateVertices(view);
+	primitives.push_back(tableLeg3);
+
+	Square tableLeg4 = tableLeg1;
+	tableLeg4.Translate(8, 0, -10);
+	tableLeg4.UpdateVertices(view);
+	primitives.push_back(tableLeg4);
+}
+
+/// &lt;summary&gt;
+/// Setup our lights
+/// &lt;/summary&gt;
+void InitMaterialLight() {
+	defaultLight = LightingData(glm::vec3(4, 4, 4),
+								glm::vec3(0.2, 0.2, 0.1),
+								glm::vec3(0.5, 0.5, 0.5),
+								glm::vec3(0.7, 0.7, 0.7),
+								1024);
+}
+
+
+int main(int argc, char** argv)
+{
+	// Initialize our scene
+	InitGlutGlew(argc, argv);
+	InitShaders();
+	InitMatrices();
+	InitMaterialLight();
+	InitLoadObjects();
+	
+	// Allow blending and transparency 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Allow depth of field
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
+
+	// Hide/Show console window
+	HWND hWnd = GetConsoleWindow();
+	ShowWindow(hWnd, SW_SHOW);
+
+	// Main loop
+	glutMainLoop();
+
+	return 0;
+}
+											
+										</code></pre>
+									</div>
+								
+									<div class="tab-content" id="tabPrim">
+										<pre ><code style="max-height: 800px;" class="csharp">#include "Primitives.h"
+
+/// &lt;summary&gt;
+/// Default constructor
+/// &lt;/summary&gt;
+Primitives::Primitives()
+{
+}
+
+/// &lt;summary&gt;
+/// Default destructor
+/// &lt;/summary&gt;
+Primitives::~Primitives()
+{
+}
+
+/// &lt;summary&gt;
+/// Render the primitive and initalize the buffers
+/// &lt;/summary&gt;
+void Primitives::Render()
+{
+	GLuint position_id;
+	GLuint color_id;
+
+	GLuint vbo_vertices;
+	GLuint vbo_colors;
+	GLuint ibo_elements;
+
+	// vbo for vertices
+	glGenBuffers(1, &vbo_vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// vbo for colors
+	glGenBuffers(1, &vbo_colors);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_colors);
+	glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(GLfloat), &colors[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// vbo for cube elements
+	glGenBuffers(1, &ibo_elements);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_elements);
+	glBufferData(
+		GL_ELEMENT_ARRAY_BUFFER, elements.size() * sizeof(GLushort), &elements[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+	// Get vertex attributes
+	position_id = glGetAttribLocation(shader_id, "position");
+	color_id = glGetAttribLocation(shader_id, "color");
+
+	// Allocate memory for vao
+	glGenVertexArrays(1, &vao);
+
+	// Bind to vao
+	glBindVertexArray(vao);
+
+	// Bind vertices to vao
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+	glVertexAttribPointer(position_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(position_id);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Bind colors to vao
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_colors);
+	glVertexAttribPointer(color_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(color_id);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_elements);
+
+	// Stop bind to vao
+	glBindVertexArray(0);
+
+	uniform_mvp = glGetUniformLocation(shader_id, "mv");
+	glUseProgram(shader_id);
+	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mv));
+}
+
+/// &lt;summary&gt;
+/// Set the data of the primitive
+/// &lt;/summary&gt;
+/// &lt;param name="vertices"&gt;Vertices for how the primitive will be displayed&lt;/param&gt;
+/// &lt;param name="colors"&gt;Color of each vertice of the primitive&lt;/param&gt;
+/// &lt;param name="elements"&gt;Elements for creating the primitive&lt;/param&gt;
+void Primitives::Set(vector&lt;GLfloat&gt; vertices, vector&lt;GLfloat&gt; colors, vector&lt;GLushort&gt; elements)
+{
+	this-&gt;vertices = vertices;
+	this-&gt;colors = colors;
+	this-&gt;elements = elements;
+}
+
+/// &lt;summary&gt;
+/// Update our MV based on the view of our screen
+/// &lt;/summary&gt;
+/// &lt;param name="view"&gt;&lt;/param&gt;
+void Primitives::UpdateVertices(glm::mat4 view)
+{
+	mv = view * model;
+}
+
+/// &lt;summary&gt;
+/// Move the primitive by towards a certain direction
+/// &lt;/summary&gt;
+/// &lt;param name="x"&gt;Move towards x axis by&lt;/param&gt;
+/// &lt;param name="y"&gt;Move towards y axis by&lt;/param&gt;
+/// &lt;param name="z"&gt;Move towards z axis by&lt;/param&gt;
+void Primitives::Translate(float x, float y, float z)
+{
+	position.Move(x, y, z);
+	model = glm::translate(model, glm::vec3(x, y, z));
+}
+
+/// &lt;summary&gt;
+/// Rotate primitive towards an angle
+/// &lt;/summary&gt;
+/// &lt;param name="x"&gt;Rotate towards x axis by&lt;/param&gt;
+/// &lt;param name="y"&gt;Rotate towards y axis by&lt;/param&gt;
+/// &lt;param name="z"&gt;Rotate towards z axis by&lt;/param&gt;
+/// &lt;param name="angle"&gt;Rotate by angle&lt;/param&gt;
+void Primitives::Rotate(float x, float y, float z, float angle)
+{
+	rotation.Move(x * angle, y * angle, z * angle);
+	model = glm::rotate(model, angle, glm::vec3(x, y, z));
+}
+
+/// &lt;summary&gt;
+/// Scale primitive by passed values
+/// &lt;/summary&gt;
+/// &lt;param name="x"&gt;Scale x axis by&lt;/param&gt;
+/// &lt;param name="y"&gt;Scale y axis by&lt;/param&gt;
+/// &lt;param name="z"&gt;Scale z axis by&lt;/param&gt;
+void Primitives::Scale(float x, float y, float z)
+{
+	scale.Move((x - scale.x), (y - scale.y), (z - scale.z));
+	model = glm::scale(model, glm::vec3(x, y, z));
+}
+											
+
+										</code></pre>
+									</div>
+									
+									<div class="tab-content" id="tabModel">
+										<pre ><code style="max-height: 800px;" class="csharp">#include "Model.h"
+
+///////////////////////////
+//  CLASS CONSTRUCTORS  //
+/////////////////////////
+#pragma region Constructors
+/// &lt;summary&gt;
+/// Default constructor
+/// &lt;/summary&gt;
+Model::Model()
+{
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath) {
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="shader"&gt;Shader ID to apply to the model&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, GLuint shader)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	shader_id = shader;
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="lightingData"&gt;Lighting data to be applied to the model&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, LightingData lightingData)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	lightData = lightingData;
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="texturePath"&gt;Directory of the texture to be applied&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, const char* texturePath)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	texture_id = loadBMP(texturePath);
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="shader"&gt;Shader ID to apply to the model&lt;/param&gt;
+/// &lt;param name="lightingData"&gt;Lighting data to be applied to the model&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, GLuint shader, LightingData lightingData)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	shader_id = shader;
+	lightData = lightingData;
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="texturePath"&gt;Directory of the texture to be applied&lt;/param&gt;
+/// &lt;param name="shader"&gt;Shader ID to apply to the model&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, const char* texturePath, GLuint shader)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	texture_id = loadBMP(texturePath);
+	shader_id = shader;
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="texturePath"&gt;Directory of the texture to be applied&lt;/param&gt;
+/// &lt;param name="lightingData"&gt;Lighting data to be applied to the model&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, const char* texturePath, LightingData lightingData)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	texture_id = loadBMP(texturePath);
+	lightData = lightingData;
+}
+
+/// &lt;summary&gt;
+/// Constructor to create a model
+/// &lt;/summary&gt;
+/// &lt;param name="modelName"&gt;Name of model&lt;/param&gt;
+/// &lt;param name="modelPath"&gt;Directory where model is stored&lt;/param&gt;
+/// &lt;param name="texturePath"&gt;Directory of the texture to be applied&lt;/param&gt;
+/// &lt;param name="shader"&gt;Shader ID to apply to the model&lt;/param&gt;
+/// &lt;param name="lightingData"&gt;Lighting data to be applied to the model&lt;/param&gt;
+Model::Model(string modelName, const char* modelPath, const char* texturePath, GLuint shader, LightingData lightingData)
+{
+	this-&gt;modelName = modelName;
+	loadOBJ(modelPath, vertices, uvs, normals);
+	texture_id = loadBMP(texturePath);
+	shader_id = shader;
+	lightData = lightingData;
+}
+
+/// &lt;summary&gt;
+/// Default destructor
+/// &lt;/summary&gt;
+Model::~Model()
+{
+	// destructor
+}
+
+#pragma endregion Constructors
+
+///////////////////////////
+//    VISUAL RENDERING  //
+/////////////////////////
+
+/// &lt;summary&gt;
+/// Create a buffer for our model and render it within the scene
+/// &lt;/summary&gt;
+/// &lt;param name="view"&gt;Current camera view&lt;/param&gt;
+/// &lt;param name="projection"&gt;Camera Projection&lt;/param&gt;
+void Model::Render(glm::mat4 view, glm::mat4 projection)
+{
+	GLuint position_id;
+	GLuint color_id;
+	GLuint vbo_vertices;
+	GLuint vbo_colors;
+	GLuint ibo_elements;
+	GLuint vbo_normals;
+	GLuint vbo_uvs;
+	GLuint normal_id;
+
+	// vbo for vertices
+	glGenBuffers(1, &vbo_vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+	glBufferData(GL_ARRAY_BUFFER,
+		vertices.size() * sizeof(glm::vec3), &vertices[0],
+		GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// vbo for normals
+	glGenBuffers(1, &vbo_normals);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+	glBufferData(GL_ARRAY_BUFFER,
+		normals.size() * sizeof(glm::vec3),
+		&normals[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// vbo for uvs
+	glGenBuffers(1, &vbo_uvs);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2),
+		&uvs[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Get vertex attributes
+	position_id = glGetAttribLocation(shader_id, "position");
+	normal_id = glGetAttribLocation(shader_id, "normal");
+	GLuint uv_id = glGetAttribLocation(shader_id, "uv");
+
+	// Allocate memory for vao
+	glGenVertexArrays(1, &vao);
+
+	glBindVertexArray(vao);
+
+	// Bind vertices to vao
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+	glVertexAttribPointer(position_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(position_id);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Bind normals to vao
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normals);
+	glVertexAttribPointer(normal_id, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(normal_id);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Bind to vao
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_uvs);
+	glVertexAttribPointer(uv_id, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(uv_id);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// Bind elements to vao
+	// glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_elements);
+
+	// Stop bind to vao
+	glBindVertexArray(0);
+
+	// Make uniform vars
+	uniform_mvp = glGetUniformLocation(shader_id, "mv");
+	GLuint uniform_proj = glGetUniformLocation(shader_id, "projection");
+	GLuint uniform_light_pos = glGetUniformLocation(shader_id, "light_pos");
+	GLuint uniform_material_ambient = glGetUniformLocation(shader_id,
+		"mat_ambient");
+	GLuint uniform_material_diffuse = glGetUniformLocation(shader_id,
+		"mat_diffuse");
+	GLuint uniform_specular = glGetUniformLocation(
+		shader_id, "mat_specular");
+	GLuint uniform_material_power = glGetUniformLocation(
+		shader_id, "mat_power");
+
+	// Define model
+	UpdateModelVertices(view);
+
+	// Send mvp
+	glUseProgram(shader_id);
+	glUniformMatrix4fv(uniform_mvp, 1, GL_FALSE, glm::value_ptr(mv));
+	glUniformMatrix4fv(uniform_proj, 1, GL_FALSE, glm::value_ptr(projection));
+	glUniform3fv(uniform_light_pos, 1, glm::value_ptr(lightData.light_position));
+	glUniform3fv(uniform_material_ambient, 1, glm::value_ptr(lightData.ambient_color));
+	glUniform3fv(uniform_material_diffuse, 1, glm::value_ptr(lightData.diffuse_color));
+	glUniform3fv(uniform_specular, 1, glm::value_ptr(lightData.specular));
+	glUniform1f(uniform_material_power, lightData.power);
+}
+
+/// &lt;summary&gt;
+/// Update our models verticies/MV
+/// &lt;/summary&gt;
+/// &lt;param name="view"&gt;Current camera view&lt;/param&gt;
+void Model::UpdateModelVertices(glm::mat4 view)
+{
+	mv = view * model;
+}
+
+///////////////////////////
+//    TRANSFORMATIONS   //
+/////////////////////////
+/// &lt;summary&gt;
+/// Move the model by towards a certain direction
+/// &lt;/summary&gt;
+/// &lt;param name="x"&gt;Move towards x axis by&lt;/param&gt;
+/// &lt;param name="y"&gt;Move towards y axis by&lt;/param&gt;
+/// &lt;param name="z"&gt;Move towards z axis by&lt;/param&gt;
+void Model::Translate(float x, float y, float z) 
+{
+	position.Move(x, y, z);
+	model = glm::translate(model, glm::vec3(x, y, z));
+}
+
+/// &lt;summary&gt;
+/// Rotate model towards an angle
+/// &lt;/summary&gt;
+/// &lt;param name="x"&gt;Rotate towards x axis by&lt;/param&gt;
+/// &lt;param name="y"&gt;Rotate towards y axis by&lt;/param&gt;
+/// &lt;param name="z"&gt;Rotate towards z axis by&lt;/param&gt;
+/// &lt;param name="angle"&gt;Rotate by angle&lt;/param&gt;
+void Model::Rotate(float x, float y, float z, float angle)
+{
+	rotation.Move(x * angle, y * angle, z * angle);
+	model = glm::rotate(model, angle, glm::vec3(x, y, z));
+}
+
+/// &lt;summary&gt;
+/// Scale model by passed values
+/// &lt;/summary&gt;
+/// &lt;param name="x"&gt;Scale x axis by&lt;/param&gt;
+/// &lt;param name="y"&gt;Scale y axis by&lt;/param&gt;
+/// &lt;param name="z"&gt;Scale z axis by&lt;/param&gt;
+void Model::Scale(float x, float y, float z)
+{   
+	scale.Move((x - scale.x), (y - scale.y), (z - scale.z));
+	model = glm::scale(model, glm::vec3(x, y, z));
+}
+											
+
+										</code></pre>
+									</div>
+
+									<div class="tab-content" id="tabShader">
+										<pre ><code style="max-height: 800px;" class="csharp">// VERTEX SHADER
+
+#version 430 core
+
+uniform mat4 mv;
+uniform vec3 light_pos;
+uniform mat4 projection;
+
+
+in vec3 position;
+in vec3 normal;
+in vec3 color;
+in vec2 uv;
+out vec2 UV;
+
+out VS_OUT
+{
+	vec3 N;
+	vec3 L;
+	vec3 V;
+} vs_out;
+
+
+void main()
+{
+	// Calculate view-space coordinate
+	vec4 P = mv * vec4(position, 1.0);
+
+	// Calculate normal in view-space
+	vs_out.N = mat3(mv) * normal;
+
+	// Calculate light vector
+	vs_out.L = light_pos - P.xyz;
+
+	vs_out.V = -P.xyz;
+
+	UV = uv;
+
+	// Calculate the clip-space position of each vertex
+	gl_Position = projection * P;
+}
+
+
+// FRAGMENT SHADER
+#version 430 core
+
+uniform vec3 mat_ambient;
+uniform vec3 mat_diffuse;
+uniform vec3 mat_specular;
+uniform float mat_power;
+
+in vec2 UV;
+uniform sampler2D texsampler;
+
+
+in VS_OUT
+{
+	vec3 N;
+	vec3 L;
+	vec3 V;
+} fs_in;
+
+out vec4 FragColor;
+
+void main()
+{
+	// Normalize the incoming N and L vectors
+	vec3 N = normalize(fs_in.N);
+	vec3 L = normalize(fs_in.L);
+	vec3 V = normalize(fs_in.V);
+
+	// Calculate R locally
+	vec3 R = reflect(-L, N);
+
+	// Compute the diffuse component for each fragment
+	//vec3 diffuse = max(dot(N, L), 0.0) * mat_diffuse;
+
+	vec3 diffuse = max(dot(N, L), 0.0) *
+		texture2D(texsampler, UV).rgb;
+
+	// Compute the specular component for each fragment
+	vec3 specular = pow(max(dot(R, V), 0.0), mat_power) * mat_specular;
+
+	// Write final color to the framebuffer
+	FragColor = vec4(mat_ambient + specular + diffuse, 1.0); // alpha set
+}
+										</code></pre>
+									</div>
+
+									<div class="tab-content" id="tabGLSL">
+										<pre ><code style="max-height: 800px;" class="csharp">#include "glsl.h"
+
+char* glsl::contents;
+
+char* glsl::readFile(const char* filename)
+{
+	// Open the file
+	FILE* fp = fopen(filename, "r");
+	// Move the file pointer to the end of the file and determing the length
+	fseek(fp, 0, SEEK_END);
+	long file_length = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+	char* contents = new char[file_length + 1];
+	// zero out memory
+	for (int i = 0; i < file_length + 1; i++) 
+	{
+		contents[i] = 0;
+	}
+	// Here's the actual read
+	fread(contents, 1, file_length, fp);
+	// This is how you denote the end of a string in C
+	contents[file_length + 1] = '\0';
+	fclose(fp);
+	return contents;
+}
+
+bool glsl::compiledStatus(GLint shaderID)
+{
+	GLint compiled = 0;
+	glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compiled);
+	if (compiled) {
+		return true;
+	}
+	else {
+		GLint logLength;
+		glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &logLength);
+		char* msgBuffer = new char[logLength];
+		glGetShaderInfoLog(shaderID, logLength, NULL, msgBuffer);
+		printf("%s\n", msgBuffer);
+		delete (msgBuffer);
+		return false;
+	}
+}
+
+GLuint glsl::makeVertexShader(const char* shaderSource)
+{
+	GLuint vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShaderID, 1, (const GLchar**)&shaderSource, NULL);
+	glCompileShader(vertexShaderID);
+	bool compiledCorrectly = compiledStatus(vertexShaderID);
+	if (compiledCorrectly)
+	{
+		return vertexShaderID;
+	}
+	return -1;
+}
+
+GLuint glsl::makeFragmentShader(const char* shaderSource)
+{
+	GLuint fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShaderID, 1, (const GLchar**)&shaderSource, NULL);
+	glCompileShader(fragmentShaderID);
+	//delete[] source;
+	bool compiledCorrectly = compiledStatus(fragmentShaderID);
+	if (compiledCorrectly) {
+		return fragmentShaderID;
+	}
+	return -1;
+}
+
+GLuint glsl::makeShaderProgram(GLuint vertexShaderID, GLuint fragmentShaderID)
+{
+	GLuint shaderID = glCreateProgram();
+	glAttachShader(shaderID, vertexShaderID);
+	glAttachShader(shaderID, fragmentShaderID);
+	glLinkProgram(shaderID);
+	return shaderID;
+}
+										</code></pre>
+									</div>
+									<!-- END OF CODE BLOCKS -->	
+								
+								</div>
+							</div>
 
 							<!-- Maze -->
 							<!--
