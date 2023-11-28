@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Luke Tobin - Classroom Management</title>
+		<title>Luke Tobin - SuikAR</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="../assets/css/main.css" />
@@ -80,47 +80,53 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Classroom Management</h1>
-							<h2>Concept</h2>
-							<p>VR training application that simulates classroom environments for educators. This application immerses trainees in scenarios commonly found in real classrooms, allowing them to practice and refine their handling of various situations.</p>
+							<h1>SuikAR</h1>
+							<h2>Project</h2>
+							<p>A fun experimentation project for exploring the possibility of having a <b>3D Suika Game in an AR environment.</b></p>
+							<p><i>The project is based on an translating an existing game <a href="https://www.nintendo.com/us/store/products/suika-game-switch/">Suika Game</a> to AR</i></p>
 							<br/>
-							<!-- Video -->
 							
+							<!-- Video -->
 							<div style="text-align: center;">
-								<iframe width="760" height="415" src="https://www.youtube.com/embed/b1KoSxaHzhQ?si=uiwACilTGzrtRGwB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+								<video width="640" height="460" controls>
+									<source src="https://github.com/LukeTobin/luketobin.github.io/raw/master/videos/suikar.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+								  </video>
 							</div>
-
 							
 
         					<!-- Project Details -->
 							<h2 style="margin-top: 2em">Project Details</h2>
-							<p style="margin-top: -1em"><b>Team Size: </b> 5</p>
-							<p style="margin-top: -1em"><b>Year: </b>2022</p>
-							<p style="margin-top: -1em"><b>Client: </b>Rijksuniversiteit Groningen</p>
-							<p style="margin-top: -1em"><b>Engine: </b>Unity & Unreal Engine</p>
+							<p style="margin-top: -1em"><b>Team Size: </b> 1</p>
+							<p style="margin-top: -1em"><b>Year: </b>2023</p>
+							<p style="margin-top: -1em"><b>Length: </b>2 days</p>
+							<p style="margin-top: -1em"><b>Engine: </b>Unity</p>
 							<p style="margin-top: -1em"><b>Source Control: </b>GitHub</p>
 
 							<!-- Work Done -->
 							<h2 style="margin-top: 2em">Notable Work</h2>
 							<div class="container">
 								<div class="content">
-									<h3>Individual Contributions</h3>
+									<h3>Overview</h3>
 									<ul>
-										<li>Ported an existing prototype from <b>Unreal Engine to Unity</b></li>
-										<li>Researched into the existing product and <b>game-based learning for teaching</b></li>
-										<li>Designed and implemented a <b>state-based scenario system</b>, utilizing State Machines & ScriptableObjects</li>
-										<li>Developed a <b>real-time scenario builder</b></li>
-										<li>Implemented <b>animation rigging and blending</b></li>
-										<li>Conducted thorough <b>evaluations</b> of the product by <b>playtesting</b> with teachers in training</li>
-										<li>Worked with the <b>Oculus SDK & XRToolkit</b> for VR development</li>
-									</ul>
+										<li>Translated the <b>core gameplay loop into 3D AR</b> and made necessary adjustments to the mechanics.</li>
+											<ul>
+												<li>Required three identical fruits to collide for a match.</li>
+												<li>Showed only the next fruit to spawn.</li>
+											</ul>
+										<li>Worked with <b>XRToolkit</b>, specifically utilizing <b>ARRaycasting and ARPlanes.</b></li>
+										<li>Implemented a robust, <b>generic event dispatcher</b>, adopting a more centralized approach to the <u>observer pattern</u>.</li>
+										<li>Adhered strictly to the <b>SOLID principles</b> whenever possible.</li>
+										<li>Developed a <b>custom gravity controller</b> to manage the <u>gravitational pull</u> affecting the fruit.</li>
+									  </ul>
+									  
 								</div>
 							</div>
 
 							<br><br>
 							<h3>Links</h3>
 							<ul class="icons">
-									<li id="test2"><a href="https://github.com/janpkrs97/GameOverRestartGame" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+									<li id="test2"><a href="https://github.com/LukeTobin/SuikAR" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
 							</ul>
 						</div>
 						
