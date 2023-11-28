@@ -123,6 +123,137 @@
 								</div>
 							</div>
 
+							<!-- Gameloop -->
+							<div class="container">
+								<div class="content">
+									<h3>Gameloop</h3>
+									<p>The basic gameplay loop involves combining two identical fruits to create a larger fruit. The game follows a Tetris-like approach, providing information and choices to the player in a similar fashion.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-4"><span class="image fit"><img src="../images/SuikAR/loop.JPG" alt="" /></span></div>
+										</div>
+									</div>
+									<p>To adapt to the gameplay taking place in a 3D world using AR, various changes needed to be made to both the core gameplay and supporting systems.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-8"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/SuikAR/gameplay.gif" alt="" /></span></div>
+										</div>
+									</div>
+									<p><b>Match-3</b>: With improved control and precision over fruit placement, combining fruit became much easier without significant hassle. Requiring three fruit to collide created a more engaging experience in a 3D environment.</p>
+									<p><b>Gravitational Pull</b>: In the original game, losing fruit wasn't possible, but in the AR setting, players could shoot fruit outside the gameplay boundaries. To address this, a custom gravity system was implemented, pulling fruit toward the center of a specified object.</p>
+								</div>
+							</div>
+
+							<!-- Gravity -->
+							<div class="container">
+								<div class="content">
+									<h3>Gravity</h3>
+									<p>A custom gravity system was implemented that would act as a gravitational pull for bypassing fruit.</p>
+									<div class="box alt">
+										<div class="row aln-center">
+											<div class="col-4"><span class="image fit"><img src="https://media.githubusercontent.com/media/LukeTobin/luketobin.github.io/master/images/SuikAR/gravity.gif" alt="" /></span></div>
+										</div>
+									</div>
+									<pre><code style="max-height: 700px;" class="csharp">using UnityEngine;
+
+namespace SuikAR.Systems
+{
+	public class GravitationalPull : MonoBehaviour
+	{
+		[SerializeField] private float gravitationalForce = 9.81f;
+		[Tooltip("Gravity strength should be lower the closer the fruit's distance to this value")]
+		[SerializeField] private float gravitationalDeadzone = 0.3f; 
+
+		private void FixedUpdate()
+		{
+		  foreach (var collider in Physics.OverlapBox(transform.position, transform.localScale))
+		  {
+			collider.TryGetComponent(out Rigidbody rb);
+			if (rb)
+			{
+			  Vector3 direction = transform.position - collider.transform.position;
+			  float distance = direction.magnitude;
+
+			  if (distance > gravitationalDeadzone)
+			  {
+				// Calculate gravitational force
+				float forceMagnitude = gravitationalForce * rb.mass / Mathf.Pow(distance, 2);
+				Vector3 force = direction.normalized * forceMagnitude;
+
+				// Apply force to the object
+				rb.AddForce(force);
+			  }
+			  else if (distance <= gravitationalDeadzone && distance > 0)
+			  {
+				// Calculate reduced force within the dead zone
+				float forceMagnitude = gravitationalForce * rb.mass / Mathf.Pow(gravitationalDeadzone, 2);
+				float distanceFactor = Mathf.InverseLerp(0, gravitationalDeadzone, distance);
+				float reducedForceMagnitude = Mathf.Lerp(0, forceMagnitude, distanceFactor);
+				Vector3 force = direction.normalized * reducedForceMagnitude;
+
+				// Apply force to the object
+				rb.AddForce(force);
+			  }
+			}
+		  }
+		}
+	} 
+}													
+										</code></pre>
+								</div>
+							</div>
+
+							<!-- Event Dispatcher -->
+							<div class="container">
+								<div class="content">
+									<h3>Events</h3>
+									<p></p>
+									<p>A generic event dispatcher that is designed to allow classes to subscribe to notifications and receive data without requiring coupling with other classes. It offers a more centralized approach to the observer pattern.</p>
+									<pre><code style="max-height: 700px;" class="csharp">using System;
+using System.Collections.Generic;
+
+namespace SuikAR.Events
+{
+	public static class EventManager
+	{
+		private static Dictionary<Event, Delegate> eventDictionary = new Dictionary<Event, Delegate>();
+
+		public enum Event
+		{
+		   OnGameStarted,
+		   OnFruitCombine,
+		   OnFruitQueued,
+		   OnScored,
+		   OnNewHighscore
+		}
+		
+		public static void Subscribe<T>(Event eventType, Action<T> listener)
+		{
+		   eventDictionary.TryAdd(eventType, null);
+		   eventDictionary[eventType] = Delegate.Combine(eventDictionary[eventType], listener);
+		}
+		
+		public static void Unsubscribe<T>(Event eventType, Action<T> listener)
+		{
+		   if (eventDictionary.ContainsKey(eventType))
+		   {
+		      eventDictionary[eventType] = Delegate.Remove(eventDictionary[eventType], listener);
+		   }
+		}
+
+		public static void Invoke<T>(Event eventType, T value)
+		{
+		   if (eventDictionary.TryGetValue(eventType, out Delegate eventDelegate))
+		   {
+			 (eventDelegate as Action<T>)?.Invoke(value);
+		   }
+		}
+	}
+}									
+										</code></pre>
+								</div>
+							</div>
+
 							<br><br>
 							<h3>Links</h3>
 							<ul class="icons">
@@ -164,7 +295,7 @@
 									<li id="test"><a href="https://twitter.com/freyble" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
 									<li id="test"><a href="mailto: lukejltobin@gmail.com" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
 
-									<li id="test"><a href="" class="icon brands style3 fa-discord"><span class="label">Frey#3163</span></a></li>
+									<li id="test"><a href="" class="icon brands style3 fa-discord"><span class="label">Freyble</span></a></li>
 								</ul>
 							</section>
 							<ul class="copyright">
