@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Luke Tobin - AR Claw Machine</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/snazzy.min.css" integrity="sha512-DCCYH45xX7P4ggjembrwefCdll9HsL6YODZmhtqCNnZU4aysKTrSUyFoLq0sutXY+AF6le33xVPNo6hFGGOQ8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<style>
+			/* Custom styles for the tab container */
+			.tab-container {
+				display: flex;
+				justify-content: space-between;
+			}
+	
+			.tab-button {
+				padding: 10px 15px;
+				background-color: #f0f0f0;
+				cursor: pointer;
+				color: #333;
+			}
+
+			.tab-button:hover {
+				background-color: #ccc; /* Change this color for hover effect */
+			}
+	
+			.tab-content {
+				width: 100%;
+				display: none;
+			}
+	
+			.tab-content.active {
+				display: block;
+			}
+		</style>
+
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+	
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/csharp.min.js"></script>
+		<script>hljs.highlightAll();</script>
+	
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">Technical Design Portfolio</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../docs/Resume.pdf" target="_blank">Resume</a></li>
+							<li><a href="#con">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>AR Claw Machine</h1>
+							<h2>Project</h2>
+							<p>An AR claw machine prototype with image tracking integration to allow for different types of claw machines in an AR environment.</p>
+	
+							<br/>
+							
+							<!-- Video -->
+							<div style="text-align: center;">
+								<video width="640" height="460" controls>
+									<source src="https://github.com/LukeTobin/luketobin.github.io/raw/master/videos/clawmachine.mp4" type="video/mp4">
+									Your browser does not support the video tag.
+								  </video>
+							</div>
+							
+
+        					<!-- Project Details -->
+							<h2 style="margin-top: 2em">Project Details</h2>
+							<p style="margin-top: -1em"><b>Team Size: </b> 1</p>
+							<p style="margin-top: -1em"><b>Year: </b>2023</p>
+							<p style="margin-top: -1em"><b>Length: </b>2 days</p>
+							<p style="margin-top: -1em"><b>Engine: </b>Unity</p>
+							<p style="margin-top: -1em"><b>Source Control: </b>GitHub</p>
+
+							<!-- Work Done -->
+							<h2 style="margin-top: 2em">Notable Work</h2>
+							<div class="container">
+								<div class="content">
+									<h3>Overview</h3>
+									<ul>
+										<li>Functioning <b>physics-based claw machine</b></li>
+										<li>Utilized XRToolkit's <b>ARTrackedImageManager & ReferenceImageLibrary</b> for handling unique model loading</li>
+										<li><b>Different claw machine models</b> based on tracked images</li>
+										<li>Fine tweaked <b>physics-based rewards</b> to better emulate a real-world claw machine</li>
+									  </ul>
+									  
+								</div>
+							</div>
+
+							<!-- Tracked images -->
+							<div class="container">
+								<div class="content">
+									<h3>Tracked Images</h3>
+									<p>A custom class to handle unique object instantiating based on tracked images. The custom class works in tangent with XRToolkit's ARTrackedImageManager at runtime.</p>
+									
+									<pre><code style="max-height: 700px;" class="csharp">using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+
+public class ImageTrackingManager : MonoBehaviour
+{
+	[Header("XR References")]
+	[SerializeField] private ARTrackedImageManager trackedImageManager;
+	[SerializeField] private XRReferenceImageLibrary referenceImageLibrary;
+
+	[Header("Claw Machines")]
+	[SerializeField] private GameObject[] clawMachines;
+
+	private static Dictionary<Guid, GameObject> trackingList = new Dictionary<Guid, GameObject>();
+
+	private void OnEnable()
+	{
+		/// Setup tracking Dictionary
+		for (int i = 0; i < clawMachines.Length; i++)
+		{
+			trackingList.Add(referenceImageLibrary[i].guid, clawMachines[i]);
+		}
+		
+		trackedImageManager.trackedImagesChanged += OnTrackedImageChanged;
+	}
+
+	private void OnDisable()
+	{
+		trackedImageManager.trackedImagesChanged -= OnTrackedImageChanged;
+	}
+
+	private void OnTrackedImageChanged(ARTrackedImagesChangedEventArgs obj)
+	{
+		/// Handle object instantiating
+		foreach (ARTrackedImage image in obj.added)
+		{
+			if (trackingList.ContainsKey(image.referenceImage.guid))
+			{
+				/// Rotate claw machine on Y axis toward the camera
+				Vector3 cameraToImage = Camera.main.transform.position - image.transform.position;
+				Quaternion initialRotation = trackingList[image.referenceImage.guid].transform.rotation;
+				Quaternion lookRotation = Quaternion.LookRotation(cameraToImage, Vector3.up);
+				
+				float angle = Quaternion.Angle(Quaternion.Euler(0, lookRotation.eulerAngles.y, 0), initialRotation);
+				
+				Quaternion finalRotation = Quaternion.Euler(initialRotation.eulerAngles.x, angle, initialRotation.eulerAngles.z);
+				
+				Instantiate(trackingList[image.referenceImage.guid], image.transform.position, finalRotation);
+			}
+		}
+	}
+}													
+										</code></pre>
+								</div>
+							</div>
+
+							<br><br>
+							<h3>Links</h3>
+							<ul class="icons">
+									<li id="test2"><a href="https://github.com/LukeTobin/ClawMachine" class="icon brands style2 fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+							</ul>
+						</div>
+						
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<!--
+							<section>
+								<h2 id="test">Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+						-->
+							<section>
+								<h2 id="test">Contact</h2>
+								<ul class="icons">
+									<li id="test"><a href="https://github.com/LukeTobin" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li id="test"><a href="https://www.linkedin.com/in/lukejltobin/" class="icon brands style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li id="test"><a href="https://twitter.com/freyble" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li id="test"><a href="mailto: lukejltobin@gmail.com" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+
+									<li id="test"><a href="" class="icon brands style3 fa-discord"><span class="label">Freyble</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Luke Tobin. All rights reserved</li></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2"></script>
+		<script>
+			hljs.initHighlightingOnLoad();
+
+			function showTab(tabId) {
+				// Hide all tab contents
+				var tabContents = document.querySelectorAll('.tab-content');
+				tabContents.forEach(function(content) {
+					content.classList.remove('active');
+				});
+
+				// Show the selected tab content
+				var selectedTab = document.getElementById(tabId);
+				selectedTab.classList.add('active');
+			}
+		</script>
+
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/browser.min.js"></script>
+		<script src="../assets/js/breakpoints.min.js"></script>
+		<script src="../assets/js/util.js"></script>
+		<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
